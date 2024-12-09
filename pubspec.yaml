@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: ^2.0.10
   image_picker: ^1.1.2
   shared_preferences: ^2.2.3
+  riverpod_lint: ^2.6.3
 
 dev_dependencies:
   flutter_test:
@@ -34,8 +35,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # assets:
-  #   - assets/icons/
+  assets:
+    - assets/icons/
   
   fonts:
     - family: Pretendard
@@ -58,30 +59,5 @@ flutter:
           weight: 800
         - asset: assets/fonts/Pretendard-Black.ttf
           weight: 900
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+        - asset: assets/fonts/Moneygraphy-Rounded.ttf
+          weight: 400
