@@ -22,6 +22,7 @@ dependencies:
   image_picker: ^1.1.2
   shared_preferences: ^2.2.3
   riverpod_lint: ^2.6.3
+  xml: ^6.5.0
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +59,9 @@ flutter:
         - asset: assets/fonts/Pretendard-ExtraBold.ttf
           weight: 800
         - asset: assets/fonts/Pretendard-Black.ttf
-          weight: 900
-        - asset: assets/fonts/Moneygraphy-Rounded.ttf
+          weight: 900 
+
+    - family: MoneyGraphy
+      fonts:
+        - asset: assets/fonts/Moneygraphy-Rounded.otf
           weight: 400

@@ -7,7 +7,7 @@ import 'routes/router.dart';
 void main() {
   runApp(
     const ProviderScope(
-      child: MyApp(),
+      child: SafeArea(child: MyApp()),
     ),
   );
 }

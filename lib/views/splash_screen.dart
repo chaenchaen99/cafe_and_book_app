@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cafe_and_book/common/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../routes/routes_name.dart';
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: AppColors.background,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         SizedBox(
           width: 200,
