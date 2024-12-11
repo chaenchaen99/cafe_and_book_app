@@ -16,9 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomeViewModelState {
-  Map<String, List<Book>> get bookList => throw _privateConstructorUsedError;
-  AsyncValue<Map<String, List<Book>>> get getbookListState =>
-      throw _privateConstructorUsedError;
+  Map<Category, List<Book>> get bookList =>
+      throw _privateConstructorUsedError; //카테고리별 베스트셀러 데이터 리스트
+  AsyncValue<Map<Category, List<Book>>> get getbookListState =>
+      throw _privateConstructorUsedError; //데이터 처리 상태
+  DateTime? get lastFetched => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeViewModelStateCopyWith<HomeViewModelState> get copyWith =>
@@ -32,8 +34,9 @@ abstract class $HomeViewModelStateCopyWith<$Res> {
       _$HomeViewModelStateCopyWithImpl<$Res, HomeViewModelState>;
   @useResult
   $Res call(
-      {Map<String, List<Book>> bookList,
-      AsyncValue<Map<String, List<Book>>> getbookListState});
+      {Map<Category, List<Book>> bookList,
+      AsyncValue<Map<Category, List<Book>>> getbookListState,
+      DateTime? lastFetched});
 }
 
 /// @nodoc
@@ -51,16 +54,21 @@ class _$HomeViewModelStateCopyWithImpl<$Res, $Val extends HomeViewModelState>
   $Res call({
     Object? bookList = null,
     Object? getbookListState = null,
+    Object? lastFetched = freezed,
   }) {
     return _then(_value.copyWith(
       bookList: null == bookList
           ? _value.bookList
           : bookList // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<Book>>,
+              as Map<Category, List<Book>>,
       getbookListState: null == getbookListState
           ? _value.getbookListState
           : getbookListState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<Map<String, List<Book>>>,
+              as AsyncValue<Map<Category, List<Book>>>,
+      lastFetched: freezed == lastFetched
+          ? _value.lastFetched
+          : lastFetched // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -74,8 +82,9 @@ abstract class _$$HomeViewModelStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<String, List<Book>> bookList,
-      AsyncValue<Map<String, List<Book>>> getbookListState});
+      {Map<Category, List<Book>> bookList,
+      AsyncValue<Map<Category, List<Book>>> getbookListState,
+      DateTime? lastFetched});
 }
 
 /// @nodoc
@@ -91,16 +100,21 @@ class __$$HomeViewModelStateImplCopyWithImpl<$Res>
   $Res call({
     Object? bookList = null,
     Object? getbookListState = null,
+    Object? lastFetched = freezed,
   }) {
     return _then(_$HomeViewModelStateImpl(
       bookList: null == bookList
           ? _value._bookList
           : bookList // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<Book>>,
+              as Map<Category, List<Book>>,
       getbookListState: null == getbookListState
           ? _value.getbookListState
           : getbookListState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<Map<String, List<Book>>>,
+              as AsyncValue<Map<Category, List<Book>>>,
+      lastFetched: freezed == lastFetched
+          ? _value.lastFetched
+          : lastFetched // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -109,26 +123,31 @@ class __$$HomeViewModelStateImplCopyWithImpl<$Res>
 
 class _$HomeViewModelStateImpl implements _HomeViewModelState {
   const _$HomeViewModelStateImpl(
-      {final Map<String, List<Book>> bookList = const {},
-      this.getbookListState = const AsyncValue.loading()})
+      {final Map<Category, List<Book>> bookList = const {},
+      this.getbookListState = const AsyncValue.loading(),
+      this.lastFetched})
       : _bookList = bookList;
 
-  final Map<String, List<Book>> _bookList;
+  final Map<Category, List<Book>> _bookList;
   @override
   @JsonKey()
-  Map<String, List<Book>> get bookList {
+  Map<Category, List<Book>> get bookList {
     if (_bookList is EqualUnmodifiableMapView) return _bookList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_bookList);
   }
 
+//카테고리별 베스트셀러 데이터 리스트
   @override
   @JsonKey()
-  final AsyncValue<Map<String, List<Book>>> getbookListState;
+  final AsyncValue<Map<Category, List<Book>>> getbookListState;
+//데이터 처리 상태
+  @override
+  final DateTime? lastFetched;
 
   @override
   String toString() {
-    return 'HomeViewModelState(bookList: $bookList, getbookListState: $getbookListState)';
+    return 'HomeViewModelState(bookList: $bookList, getbookListState: $getbookListState, lastFetched: $lastFetched)';
   }
 
   @override
@@ -138,12 +157,17 @@ class _$HomeViewModelStateImpl implements _HomeViewModelState {
             other is _$HomeViewModelStateImpl &&
             const DeepCollectionEquality().equals(other._bookList, _bookList) &&
             (identical(other.getbookListState, getbookListState) ||
-                other.getbookListState == getbookListState));
+                other.getbookListState == getbookListState) &&
+            (identical(other.lastFetched, lastFetched) ||
+                other.lastFetched == lastFetched));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_bookList), getbookListState);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_bookList),
+      getbookListState,
+      lastFetched);
 
   @JsonKey(ignore: true)
   @override
@@ -155,14 +179,16 @@ class _$HomeViewModelStateImpl implements _HomeViewModelState {
 
 abstract class _HomeViewModelState implements HomeViewModelState {
   const factory _HomeViewModelState(
-          {final Map<String, List<Book>> bookList,
-          final AsyncValue<Map<String, List<Book>>> getbookListState}) =
-      _$HomeViewModelStateImpl;
+      {final Map<Category, List<Book>> bookList,
+      final AsyncValue<Map<Category, List<Book>>> getbookListState,
+      final DateTime? lastFetched}) = _$HomeViewModelStateImpl;
 
   @override
-  Map<String, List<Book>> get bookList;
-  @override
-  AsyncValue<Map<String, List<Book>>> get getbookListState;
+  Map<Category, List<Book>> get bookList;
+  @override //카테고리별 베스트셀러 데이터 리스트
+  AsyncValue<Map<Category, List<Book>>> get getbookListState;
+  @override //데이터 처리 상태
+  DateTime? get lastFetched;
   @override
   @JsonKey(ignore: true)
   _$$HomeViewModelStateImplCopyWith<_$HomeViewModelStateImpl> get copyWith =>

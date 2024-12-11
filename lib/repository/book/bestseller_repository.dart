@@ -21,9 +21,8 @@ class BestsellerRepository {
   }
 }
 
-@riverpod //@riverpod 어노테이션은 이 함수를 Riverpod 프로바이더로 등록
+@riverpod
 BestsellerRepository bestsellerRepository(BestsellerRepositoryRef ref) {
-  //service를 homerepository에서 주입할 수 있다.
   final service = ref.watch(bestSellerApiServiceProvider);
   return BestsellerRepository(service);
 }

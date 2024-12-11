@@ -31,7 +31,7 @@ class _PopularBookListState extends ConsumerState<PopularBookList> {
       data: (bookMap) {
         return Column(
             children: bookMap.entries.map((entry) {
-          final category = entry.key; // 카테고리 이름
+          final category = entry.key.type; // 카테고리 이름
           final books = entry.value; // 해당 카테고리의 책 리스트
 
           return Column(

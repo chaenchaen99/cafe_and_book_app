@@ -1,17 +1,29 @@
+import 'package:cafe_and_book/common/utils/cache_manager.dart';
 import 'package:cafe_and_book/model/home/bestseller_model.dart';
 import 'package:cafe_and_book/repository/book/bestseller_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_view_model.freezed.dart';
 part 'home_view_model.g.dart';
 
+enum Category {
+  finance("재테크"),
+  selfDevelopment("자기계발"),
+  tech("테크분야"),
+  humanities("인문학");
+
+  final String type;
+  const Category(this.type);
+}
+
 @freezed
 class HomeViewModelState with _$HomeViewModelState {
   const factory HomeViewModelState({
-    @Default({}) Map<String, List<Book>> bookList,
+    @Default({}) Map<Category, List<Book>> bookList, //카테고리별 베스트셀러 데이터 리스트
     @Default(AsyncValue.loading())
-    AsyncValue<Map<String, List<Book>>> getbookListState,
+    AsyncValue<Map<Category, List<Book>>> getbookListState, //데이터 처리 상태
   }) = _HomeViewModelState;
 }
 
@@ -22,20 +34,75 @@ class HomeViewModel extends _$HomeViewModel {
     return const HomeViewModelState();
   }
 
+  Future<bool> _isCachedValid() async {
+    try {
+      final now = DateTime.now();
+      final lastFetched = await CacheManager.loadLastFetched();
+
+      return lastFetched != null && now.difference(lastFetched).inDays < 1;
+    } catch (e, _) {
+      debugPrint("Error loading lastFetched: $e");
+      return false;
+    }
+  }
+
+  Future<void> _loadFromCache() async {
+    try {
+      final cachedData = await CacheManager.loadBestSellerListFromCache();
+
+      if (cachedData != null) {
+        final bookList = cachedData.map((key, value) => MapEntry(
+              Category.values.firstWhere((category) => category.type == key),
+              List<Book>.from(value.map((books) => Book.fromJson(books))),
+            ));
+        state = state.copyWith(
+          bookList: bookList,
+          getbookListState: AsyncValue.data(bookList),
+        );
+        debugPrint("Cached data loaded successfully");
+      } else {
+        debugPrint("No cached data available");
+        fetchBestSellerList();
+      }
+    } catch (e, stack) {
+      debugPrint("Error loading cached data: $e");
+      state = state.copyWith(getbookListState: AsyncValue.error(e, stack));
+    }
+  }
+
+  Future<void> _saveToCache(Map<Category, dynamic> data) async {
+    try {
+      final cacheData = data.map((key, value) => MapEntry(
+            key.type,
+            value.map((bookLists) => bookLists.toJson()).toList(),
+          ));
+
+      await CacheManager.saveBestSellerListToCache(cacheData);
+      await CacheManager.saveLastFetched(DateTime.now());
+      debugPrint("Cached data saved successfully ${state.lastFetched}");
+    } catch (e, _) {
+      debugPrint("Error saving cached data: $e");
+    }
+  }
+
   fetchBestSellerList() async {
     state = state.copyWith(getbookListState: const AsyncValue.loading());
+    final isCacheValid = await _isCachedValid();
+    //1: 캐시 확인
+    if (isCacheValid) {
+      await _loadFromCache();
+      return;
+    }
 
-    // 카테고리 목록 정의
-    final categories = ["재테크", "자기계발", "테크분야", "인문학"];
-    final Map<String, List<Book>> categoryBooks = {};
+    //2: 데이터 업데이트 후 1일이 지났으면 데이터 호출
+    final Map<Category, List<Book>> categoryBooks = {};
 
-    // API 호출 및 에러 처리
     final result = await AsyncValue.guard(() async {
-      for (final category in categories) {
+      for (final category in Category.values) {
         final books = await ref
             .watch(bestsellerRepositoryProvider)
-            .getBestSellerList(category); // API 호출
-        categoryBooks[category] = books; // 결과 저장
+            .getBestSellerList(category.type);
+        categoryBooks[category] = books;
       }
       return categoryBooks;
     });
@@ -47,6 +114,7 @@ class HomeViewModel extends _$HomeViewModel {
           bookList: data,
           getbookListState: AsyncValue.data(data),
         );
+        _saveToCache(data);
       },
       error: (error, stack) {
         state = state.copyWith(
