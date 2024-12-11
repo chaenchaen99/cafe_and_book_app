@@ -45,7 +45,7 @@ final ThemeData cafebookTheme = ThemeData(
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     //하단 네비게이션 바 테마
-    backgroundColor: AppColors.contentPrimary,
+    backgroundColor: AppColors.second,
     type: BottomNavigationBarType.fixed,
     elevation: 0,
     selectedItemColor: AppColors.white,

@@ -1,3 +1,4 @@
+import 'package:cafe_and_book/common/widgets/image_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/constants/app_colors.dart';
@@ -28,8 +29,8 @@ class _GoToBookSearchScreenState extends State<GoToBookSearchScreen> {
         decoration: const InputDecoration(
           labelText: AppTexts.search_bar_hint_text,
           suffixIcon: Icon(
-            Icons.search,
-            color: AppColors.contentPrimary,
+            Icons.search_rounded,
+            size: 28,
           ),
         ),
       ),

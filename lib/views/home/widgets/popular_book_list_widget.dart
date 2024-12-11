@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/constants/app_colors.dart';
 import '../../../common/widgets/height_and_width.dart';
+import '../../../common/widgets/line.dart';
 import '../../../view_model/home/home_view_model.dart';
 import 'main_title_text.dart';
 
@@ -28,7 +29,6 @@ class _PopularBookListState extends ConsumerState<PopularBookList> {
 
     return bestSellersState.getbookListState.when(
       data: (bookMap) {
-        // 데이터를 기반으로 UI 생성
         return Column(
             children: bookMap.entries.map((entry) {
           final category = entry.key; // 카테고리 이름
@@ -40,7 +40,16 @@ class _PopularBookListState extends ConsumerState<PopularBookList> {
               height20,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: MainTitleText(title: category.toString()),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icons/ranking.png',
+                      width: 25,
+                      height: 25,
+                    ),
+                    MainTitleText(title: " $category 도서 순위"),
+                  ],
+                ),
               ),
               height10,
               SizedBox(
@@ -97,6 +106,7 @@ class _PopularBookListState extends ConsumerState<PopularBookList> {
                   },
                 ),
               ),
+              const Line(),
             ],
           );
         }).toList());

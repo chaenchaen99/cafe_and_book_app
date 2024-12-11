@@ -14,11 +14,11 @@ class MainTitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
           fontFamily: 'Pretendard',
           fontSize: 18,
           fontWeight: FontWeight.bold,
-          color: AppColors.contentPrimary),
+          color: AppColors.black.withOpacity(0.8)),
     );
   }
 }

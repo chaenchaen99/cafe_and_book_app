@@ -1,3 +1,4 @@
+import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:flutter/material.dart';
 import '../../common/constants/app_colors.dart';
 import 'widgets/go_to_book_search_screen.dart';
@@ -11,30 +12,11 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 46.0, right: 16, left: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 30.0),
-                    child: Text(
-                      "채연 님 몽글몽글한 저녁입니다. \n오늘은 어떤 책을 읽으실 건가요?",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                  ),
-                  Image.asset(
-                    "assets/icons/mascot.png",
-                    width: 100,
-                    height: 120,
-                  ),
-                ],
-              ),
-            ),
+            height40,
             const GoToBookSearchScreen(),
-            const SizedBox(height: 16),
+            height20,
             Stack(
               children: [
                 Positioned.fill(
