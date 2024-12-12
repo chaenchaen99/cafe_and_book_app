@@ -1,3 +1,4 @@
+import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
@@ -11,7 +12,7 @@ class BookTitle extends StatelessWidget {
     super.key,
     required this.text,
     this.weight = FontWeight.w400,
-    this.color = Colors.black87,
+    this.color = AppColors.booktitle,
   });
 
   @override
@@ -56,6 +57,31 @@ class BookDescription extends StatelessWidget {
   }
 }
 
+class BookInfoText extends StatelessWidget {
+  final String text;
+  final FontWeight weight;
+  final Color color;
+
+  const BookInfoText({
+    super.key,
+    required this.text,
+    this.weight = FontWeight.w400,
+    this.color = AppColors.booksDescription,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 14,
+        fontWeight: weight,
+      ),
+    );
+  }
+}
+
 class MediumText extends StatelessWidget {
   final String text;
   final FontWeight weight;
@@ -65,7 +91,7 @@ class MediumText extends StatelessWidget {
     super.key,
     required this.text,
     this.weight = FontWeight.w400,
-    this.color = AppColors.contentPrimary,
+    this.color = AppColors.booktitle,
   });
 
   @override

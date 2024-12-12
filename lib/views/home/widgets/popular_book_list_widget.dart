@@ -1,5 +1,7 @@
+import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common/constants/app_colors.dart';
 import '../../../common/widgets/height_and_width.dart';
@@ -60,48 +62,53 @@ class _PopularBookListState extends ConsumerState<PopularBookList> {
                   scrollDirection: Axis.horizontal,
                   itemCount: books.length,
                   itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 200,
-                          width: 140,
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: const BorderRadius.all(
-                                Radius.circular(16.0)), // 둥근 모서리 적용
-                            border: Border.all(
-                              // 테두리 적용
-                              color: Colors.grey.shade300, // 테두리 색상
-                              width: 1, // 테두리 두께
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16.0)),
-                            child: Image.network(
-                              books[index].image,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                        height10,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: SizedBox(
+                    return GestureDetector(
+                      onTap: () => context.pushNamed(RoutesName.DETAIL,
+                          extra: books[index]),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 200,
                             width: 140,
-                            child: Text(
-                              books[index].title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12,
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(16.0)), // 둥근 모서리 적용
+                              border: Border.all(
+                                // 테두리 적용
+                                color: Colors.grey.shade300, // 테두리 색상
+                                width: 1, // 테두리 두께
                               ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
+                            ),
+                            child: ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16.0)),
+                              child: Image.network(
+                                books[index].image,
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          height10,
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: SizedBox(
+                              width: 140,
+                              child: Text(
+                                books[index].title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),

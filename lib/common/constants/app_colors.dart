@@ -11,6 +11,8 @@ class AppColors {
   static const Color background = Color(0xFFFCFAEE);
 
   static const Color contentPrimary = Color(0xFF493628);
+  static const Color booktitle = Color.fromARGB(255, 47, 34, 25);
+  static const Color booksDescription = Color.fromARGB(236, 63, 47, 35);
   static const Color contentPrimary30 = Color(0x30493628);
   static const Color hintColor = Color.fromARGB(255, 154, 147, 141);
 

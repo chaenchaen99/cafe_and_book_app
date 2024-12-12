@@ -1,19 +1,23 @@
 import 'package:cafe_and_book/common/constants/app_colors.dart';
 import 'package:cafe_and_book/common/constants/app_icons.dart';
+import 'package:cafe_and_book/common/utils/cache_manager.dart';
 import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:cafe_and_book/common/widgets/text_widgets.dart';
+import 'package:cafe_and_book/view_model/detail/detail_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/widgets/pop.dart';
+import '../../common/widgets/snackbar.dart';
 import '../../model/book_response.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends ConsumerWidget {
   final Book book;
   const DetailScreen({super.key, required this.book});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
           leading: GestureDetector(
@@ -28,8 +32,15 @@ class DetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    handlePop(context);
+                  onTap: () async {
+                    await ref
+                        .read(detailViewModelProvider.notifier)
+                        .saveBookToBookShelf(book);
+                    if (ref.watch(detailViewModelProvider).isAlreadySaved) {
+                      showCustomSnackBar(context, "이미 저장되어있는 책입니다.");
+                    } else {
+                      showCustomSnackBar(context, "책이 서재에 저장되었습니다.");
+                    }
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(right: 16.0),
@@ -96,7 +107,7 @@ class DetailScreen extends StatelessWidget {
                     ],
                   ),
                   height4,
-                  SmallText(text: book.author),
+                  BookInfoText(text: book.author),
                   height10,
                   Row(
                     children: [
@@ -114,7 +125,7 @@ class DetailScreen extends StatelessWidget {
                     ],
                   ),
                   height4,
-                  SmallText(text: book.publisher),
+                  BookInfoText(text: book.publisher),
                   height10,
                   Row(
                     children: [
@@ -132,7 +143,7 @@ class DetailScreen extends StatelessWidget {
                     ],
                   ),
                   height4,
-                  SmallText(text: book.description),
+                  BookInfoText(text: book.description),
                 ],
               ),
             ],
