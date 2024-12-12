@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'bestseller_model.dart';
+part of 'book_response.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-BestSellerResponse _$BestSellerResponseFromJson(Map<String, dynamic> json) {
-  return _BestSellerResponse.fromJson(json);
+BookResponse _$BookResponseFromJson(Map<String, dynamic> json) {
+  return _BookResponse.fromJson(json);
 }
 
 /// @nodoc
-mixin _$BestSellerResponse {
+mixin _$BookResponse {
   String get lastBuildDate => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
   int get start => throw _privateConstructorUsedError;
@@ -28,15 +28,15 @@ mixin _$BestSellerResponse {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BestSellerResponseCopyWith<BestSellerResponse> get copyWith =>
+  $BookResponseCopyWith<BookResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BestSellerResponseCopyWith<$Res> {
-  factory $BestSellerResponseCopyWith(
-          BestSellerResponse value, $Res Function(BestSellerResponse) then) =
-      _$BestSellerResponseCopyWithImpl<$Res, BestSellerResponse>;
+abstract class $BookResponseCopyWith<$Res> {
+  factory $BookResponseCopyWith(
+          BookResponse value, $Res Function(BookResponse) then) =
+      _$BookResponseCopyWithImpl<$Res, BookResponse>;
   @useResult
   $Res call(
       {String lastBuildDate,
@@ -47,9 +47,9 @@ abstract class $BestSellerResponseCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BestSellerResponseCopyWithImpl<$Res, $Val extends BestSellerResponse>
-    implements $BestSellerResponseCopyWith<$Res> {
-  _$BestSellerResponseCopyWithImpl(this._value, this._then);
+class _$BookResponseCopyWithImpl<$Res, $Val extends BookResponse>
+    implements $BookResponseCopyWith<$Res> {
+  _$BookResponseCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -91,11 +91,11 @@ class _$BestSellerResponseCopyWithImpl<$Res, $Val extends BestSellerResponse>
 }
 
 /// @nodoc
-abstract class _$$BestSellerResponseImplCopyWith<$Res>
-    implements $BestSellerResponseCopyWith<$Res> {
-  factory _$$BestSellerResponseImplCopyWith(_$BestSellerResponseImpl value,
-          $Res Function(_$BestSellerResponseImpl) then) =
-      __$$BestSellerResponseImplCopyWithImpl<$Res>;
+abstract class _$$BookResponseImplCopyWith<$Res>
+    implements $BookResponseCopyWith<$Res> {
+  factory _$$BookResponseImplCopyWith(
+          _$BookResponseImpl value, $Res Function(_$BookResponseImpl) then) =
+      __$$BookResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +107,11 @@ abstract class _$$BestSellerResponseImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$BestSellerResponseImplCopyWithImpl<$Res>
-    extends _$BestSellerResponseCopyWithImpl<$Res, _$BestSellerResponseImpl>
-    implements _$$BestSellerResponseImplCopyWith<$Res> {
-  __$$BestSellerResponseImplCopyWithImpl(_$BestSellerResponseImpl _value,
-      $Res Function(_$BestSellerResponseImpl) _then)
+class __$$BookResponseImplCopyWithImpl<$Res>
+    extends _$BookResponseCopyWithImpl<$Res, _$BookResponseImpl>
+    implements _$$BookResponseImplCopyWith<$Res> {
+  __$$BookResponseImplCopyWithImpl(
+      _$BookResponseImpl _value, $Res Function(_$BookResponseImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$BestSellerResponseImplCopyWithImpl<$Res>
     Object? display = null,
     Object? items = null,
   }) {
-    return _then(_$BestSellerResponseImpl(
+    return _then(_$BookResponseImpl(
       lastBuildDate: null == lastBuildDate
           ? _value.lastBuildDate
           : lastBuildDate // ignore: cast_nullable_to_non_nullable
@@ -150,8 +150,8 @@ class __$$BestSellerResponseImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BestSellerResponseImpl implements _BestSellerResponse {
-  const _$BestSellerResponseImpl(
+class _$BookResponseImpl implements _BookResponse {
+  const _$BookResponseImpl(
       {required this.lastBuildDate,
       required this.total,
       required this.start,
@@ -159,8 +159,8 @@ class _$BestSellerResponseImpl implements _BestSellerResponse {
       required final List<Book> items})
       : _items = items;
 
-  factory _$BestSellerResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BestSellerResponseImplFromJson(json);
+  factory _$BookResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BookResponseImplFromJson(json);
 
   @override
   final String lastBuildDate;
@@ -180,14 +180,14 @@ class _$BestSellerResponseImpl implements _BestSellerResponse {
 
   @override
   String toString() {
-    return 'BestSellerResponse(lastBuildDate: $lastBuildDate, total: $total, start: $start, display: $display, items: $items)';
+    return 'BookResponse(lastBuildDate: $lastBuildDate, total: $total, start: $start, display: $display, items: $items)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BestSellerResponseImpl &&
+            other is _$BookResponseImpl &&
             (identical(other.lastBuildDate, lastBuildDate) ||
                 other.lastBuildDate == lastBuildDate) &&
             (identical(other.total, total) || other.total == total) &&
@@ -204,28 +204,27 @@ class _$BestSellerResponseImpl implements _BestSellerResponse {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BestSellerResponseImplCopyWith<_$BestSellerResponseImpl> get copyWith =>
-      __$$BestSellerResponseImplCopyWithImpl<_$BestSellerResponseImpl>(
-          this, _$identity);
+  _$$BookResponseImplCopyWith<_$BookResponseImpl> get copyWith =>
+      __$$BookResponseImplCopyWithImpl<_$BookResponseImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BestSellerResponseImplToJson(
+    return _$$BookResponseImplToJson(
       this,
     );
   }
 }
 
-abstract class _BestSellerResponse implements BestSellerResponse {
-  const factory _BestSellerResponse(
+abstract class _BookResponse implements BookResponse {
+  const factory _BookResponse(
       {required final String lastBuildDate,
       required final int total,
       required final int start,
       required final int display,
-      required final List<Book> items}) = _$BestSellerResponseImpl;
+      required final List<Book> items}) = _$BookResponseImpl;
 
-  factory _BestSellerResponse.fromJson(Map<String, dynamic> json) =
-      _$BestSellerResponseImpl.fromJson;
+  factory _BookResponse.fromJson(Map<String, dynamic> json) =
+      _$BookResponseImpl.fromJson;
 
   @override
   String get lastBuildDate;
@@ -239,7 +238,7 @@ abstract class _BestSellerResponse implements BestSellerResponse {
   List<Book> get items;
   @override
   @JsonKey(ignore: true)
-  _$$BestSellerResponseImplCopyWith<_$BestSellerResponseImpl> get copyWith =>
+  _$$BookResponseImplCopyWith<_$BookResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

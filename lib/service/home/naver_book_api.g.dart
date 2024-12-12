@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bestseller_api.dart';
+part of 'naver_book_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'bestseller_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _BestsellerApi implements BestsellerApi {
-  _BestsellerApi(
+class _NaverBookApi implements NaverBookApi {
+  _NaverBookApi(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,7 +24,7 @@ class _BestsellerApi implements BestsellerApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<BestSellerResponse> getBestSellerList(
+  Future<BookResponse> getBestSellerList(
     String query,
     String sort,
     int display,
@@ -37,7 +37,7 @@ class _BestsellerApi implements BestsellerApi {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BestSellerResponse>(Options(
+    final _options = _setStreamType<BookResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -54,9 +54,48 @@ class _BestsellerApi implements BestsellerApi {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BestSellerResponse _value;
+    late BookResponse _value;
     try {
-      _value = BestSellerResponse.fromJson(_result.data!);
+      _value = BookResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<BookResponse> getBookSearchResult(
+    String query,
+    int display,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'query': query,
+      r'display': display,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<BookResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/v1/search/book_adv.json',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BookResponse _value;
+    try {
+      _value = BookResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

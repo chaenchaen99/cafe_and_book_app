@@ -1,6 +1,6 @@
 import 'package:cafe_and_book/common/utils/cache_manager.dart';
-import 'package:cafe_and_book/model/home/bestseller_model.dart';
-import 'package:cafe_and_book/repository/book/bestseller_repository.dart';
+import 'package:cafe_and_book/model/book_response.dart';
+import 'package:cafe_and_book/repository/book/naver_book_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -79,7 +79,6 @@ class HomeViewModel extends _$HomeViewModel {
 
       await CacheManager.saveBestSellerListToCache(cacheData);
       await CacheManager.saveLastFetched(DateTime.now());
-      debugPrint("Cached data saved successfully ${state.lastFetched}");
     } catch (e, _) {
       debugPrint("Error saving cached data: $e");
     }
@@ -100,7 +99,7 @@ class HomeViewModel extends _$HomeViewModel {
     final result = await AsyncValue.guard(() async {
       for (final category in Category.values) {
         final books = await ref
-            .watch(bestsellerRepositoryProvider)
+            .watch(naverBookApiRepositoryProvider)
             .getBestSellerList(category.type);
         categoryBooks[category] = books;
       }
@@ -126,4 +125,6 @@ class HomeViewModel extends _$HomeViewModel {
       },
     );
   }
+
+  fetchBookSearchResult() async {}
 }

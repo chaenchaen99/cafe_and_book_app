@@ -1,27 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bestseller_api_service.dart';
+part of 'naver_book_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bestSellerApiServiceHash() =>
-    r'38537fef00b77cf6ee2b957b294607fbde7d2ca3';
+String _$naverBookApiRepositoryHash() =>
+    r'38814cf63b5c11fd03698a40dfbaa2872be2fce9';
 
-/// See also [bestSellerApiService].
-@ProviderFor(bestSellerApiService)
-final bestSellerApiServiceProvider =
-    AutoDisposeProvider<BestsellerApi>.internal(
-  bestSellerApiService,
-  name: r'bestSellerApiServiceProvider',
+/// See also [naverBookApiRepository].
+@ProviderFor(naverBookApiRepository)
+final naverBookApiRepositoryProvider =
+    AutoDisposeProvider<NaverBookApiRepository>.internal(
+  naverBookApiRepository,
+  name: r'naverBookApiRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$bestSellerApiServiceHash,
+      : _$naverBookApiRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef BestSellerApiServiceRef = AutoDisposeProviderRef<BestsellerApi>;
+typedef NaverBookApiRepositoryRef
+    = AutoDisposeProviderRef<NaverBookApiRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

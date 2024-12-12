@@ -1,20 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'bestseller_model.freezed.dart';
-part 'bestseller_model.g.dart';
+part 'book_response.freezed.dart';
+part 'book_response.g.dart';
 
 @freezed
-class BestSellerResponse with _$BestSellerResponse {
-  const factory BestSellerResponse({
+class BookResponse with _$BookResponse {
+  const factory BookResponse({
     required String lastBuildDate,
     required int total,
     required int start,
     required int display,
     required List<Book> items,
-  }) = _BestSellerResponse;
+  }) = _BookResponse;
 
-  factory BestSellerResponse.fromJson(Map<String, dynamic> json) =>
-      _$BestSellerResponseFromJson(json);
+  factory BookResponse.fromJson(Map<String, dynamic> json) =>
+      _$BookResponseFromJson(json);
 }
 
 @freezed

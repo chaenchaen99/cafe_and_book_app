@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bestseller_model.dart';
+part of 'book_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BestSellerResponseImpl _$$BestSellerResponseImplFromJson(
-        Map<String, dynamic> json) =>
-    _$BestSellerResponseImpl(
+_$BookResponseImpl _$$BookResponseImplFromJson(Map<String, dynamic> json) =>
+    _$BookResponseImpl(
       lastBuildDate: json['lastBuildDate'] as String,
       total: (json['total'] as num).toInt(),
       start: (json['start'] as num).toInt(),
@@ -18,8 +17,7 @@ _$BestSellerResponseImpl _$$BestSellerResponseImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$BestSellerResponseImplToJson(
-        _$BestSellerResponseImpl instance) =>
+Map<String, dynamic> _$$BookResponseImplToJson(_$BookResponseImpl instance) =>
     <String, dynamic>{
       'lastBuildDate': instance.lastBuildDate,
       'total': instance.total,
