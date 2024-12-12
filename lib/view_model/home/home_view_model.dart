@@ -11,7 +11,7 @@ part 'home_view_model.g.dart';
 enum Category {
   finance("재테크"),
   selfDevelopment("자기계발"),
-  tech("테크분야"),
+  tech("AI"),
   humanities("인문학");
 
   final String type;

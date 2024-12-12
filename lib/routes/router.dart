@@ -21,6 +21,23 @@ final routerProvider = Provider<GoRouter>((ref) {
           path: "/splash",
           builder: (context, state) => const SplashScreen(),
         ),
+        GoRoute(
+          path: "/search",
+          name: RoutesName.SEARCH,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: const SearchScreen(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(
+                  opacity: animation, // 페이드 효과
+                  child: child,
+                );
+              },
+            );
+          },
+        ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) =>
               MainScreen(navigationShell),
@@ -31,13 +48,6 @@ final routerProvider = Provider<GoRouter>((ref) {
                   path: "/home",
                   name: RoutesName.HOME,
                   builder: (context, state) => const HomeScreen(),
-                  routes: [
-                    GoRoute(
-                      path: "search",
-                      name: RoutesName.SEARCH,
-                      builder: (context, state) => const SearchScreen(),
-                    ),
-                  ],
                 ),
               ],
             ),

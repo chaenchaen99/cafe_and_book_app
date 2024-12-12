@@ -5,42 +5,52 @@ final ThemeData cafebookTheme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: AppColors.background,
   fontFamily: "Pretendard",
-  inputDecorationTheme: const InputDecorationTheme(
+  textTheme: const TextTheme(
+      displayMedium: TextStyle(
+    color: AppColors.contentPrimary,
+    fontSize: 12,
+  )),
+  inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: AppColors.white,
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(12.0)), // 모서리를 둥글게 만들기
-      borderSide: BorderSide(
+      borderRadius: BorderRadius.circular(20.0), // 모서리를 둥글게 만들기
+      borderSide: const BorderSide(
         color: AppColors.contentPrimary, // 테두리 색상
         width: 1.0, // 테두리 두께
       ),
     ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    enabledBorder: const OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20.0)),
       borderSide: BorderSide(
         color: AppColors.contentPrimary, // 활성화 상태에서 테두리 색상
         width: 1.0,
       ),
     ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    focusedBorder: const OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20.0)),
       borderSide: BorderSide(
         color: AppColors.contentPrimary, // 활성화 상태에서 테두리 색상
         width: 1.0,
       ),
     ),
-    contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-    hintStyle: TextStyle(
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+    hintStyle: const TextStyle(
       color: Colors.grey,
-      fontFamily: 'MoneyGraphy',
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.5,
     ),
-    helperStyle: TextStyle(
+    helperStyle: const TextStyle(
       color: Colors.grey,
-      fontFamily: 'MoneyGraphy',
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.5,
     ),
-    labelStyle: TextStyle(
+    labelStyle: const TextStyle(
       color: AppColors.hintColor,
-      fontFamily: 'MoneyGraphy',
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.5,
     ),
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
