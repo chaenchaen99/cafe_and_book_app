@@ -1,5 +1,7 @@
+import 'package:cafe_and_book/model/book_response.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:cafe_and_book/views/bookcafe/bookcafe_screen.dart';
+import 'package:cafe_and_book/views/detail/detail_screen.dart';
 import 'package:cafe_and_book/views/library/library_screen.dart';
 import 'package:cafe_and_book/views/main_screen.dart';
 import 'package:cafe_and_book/views/search/search_screen.dart';
@@ -28,6 +30,24 @@ final routerProvider = Provider<GoRouter>((ref) {
             return CustomTransitionPage(
               key: state.pageKey,
               child: const SearchScreen(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(
+                  opacity: animation, // 페이드 효과
+                  child: child,
+                );
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: "/detail",
+          name: RoutesName.DETAIL,
+          pageBuilder: (context, state) {
+            final book = state.extra as Book;
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: DetailScreen(book: book),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
                 return FadeTransition(

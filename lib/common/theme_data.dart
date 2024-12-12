@@ -5,11 +5,10 @@ final ThemeData cafebookTheme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: AppColors.background,
   fontFamily: "Pretendard",
-  textTheme: const TextTheme(
-      displayMedium: TextStyle(
-    color: AppColors.contentPrimary,
-    fontSize: 12,
-  )),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: AppColors.background,
+    iconTheme: IconThemeData(color: AppColors.contentPrimary),
+  ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: AppColors.white,
