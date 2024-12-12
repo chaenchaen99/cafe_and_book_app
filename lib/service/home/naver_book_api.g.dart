@@ -71,7 +71,7 @@ class _NaverBookApi implements NaverBookApi {
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'query': query,
+      r'd_titl': query,
       r'display': display,
     };
     final _headers = <String, dynamic>{};

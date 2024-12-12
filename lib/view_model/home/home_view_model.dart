@@ -125,6 +125,4 @@ class HomeViewModel extends _$HomeViewModel {
       },
     );
   }
-
-  fetchBookSearchResult() async {}
 }

@@ -20,11 +20,8 @@ class NaverBookApiRepository {
     return result.items;
   }
 
-  Future<List<Book>> get(String query) async {
-    final result = await naverBookApiService.getBookSearchResult(
-      query,
-      50,
-    );
+  Future<List<Book>> getBookRearchResult(String query) async {
+    final result = await naverBookApiService.getBookSearchResult(query, 100);
     return result.items;
   }
 }

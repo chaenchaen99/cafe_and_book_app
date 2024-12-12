@@ -19,7 +19,7 @@ abstract class NaverBookApi {
 
   @GET("/v1/search/book_adv.json")
   Future<BookResponse> getBookSearchResult(
-    @Query("query") String query,
+    @Query("d_titl") String query,
     @Query("display") int display,
   );
 }
