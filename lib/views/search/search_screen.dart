@@ -1,6 +1,11 @@
+import 'package:cafe_and_book/common/widgets/circular_background.dart';
 import 'package:cafe_and_book/common/widgets/height_and_width.dart';
+import 'package:cafe_and_book/common/widgets/line.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../common/constants/app_colors.dart';
 import '../../common/widgets/text_widgets.dart';
+import 'widgets/search_result_item.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -34,7 +39,8 @@ class _SearchScreenState extends State<SearchScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 40, left: 12, right: 16),
+            padding:
+                const EdgeInsets.only(top: 40, left: 12, right: 16, bottom: 20),
             child: Row(
               children: [
                 Expanded(
@@ -54,12 +60,32 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
                 const Width(width: 10),
-                const MediumText(
-                  text: "취소",
-                  weight: FontWeight.w600,
+                GestureDetector(
+                  onTap: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    }
+                  },
+                  child: const MediumText(
+                    text: "취소",
+                    weight: FontWeight.w600,
+                  ),
                 ),
               ],
             ),
+          ),
+          Expanded(
+            child: Stack(children: [
+              const CircularBackground(),
+              ListView.separated(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                itemCount: 50, //TODO: need to fix real data
+                itemBuilder: (context, index) {
+                  return const SearchResultItem();
+                },
+                separatorBuilder: (context, index) => const Line(),
+              ),
+            ]),
           ),
         ],
       ),
