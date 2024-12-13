@@ -104,7 +104,9 @@ class __$$DetailViewModelStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DetailViewModelStateImpl implements _DetailViewModelState {
+class _$DetailViewModelStateImpl
+    with DiagnosticableTreeMixin
+    implements _DetailViewModelState {
   const _$DetailViewModelStateImpl(
       {this.isAlreadySaved = false,
       this.bookshelfState = const AsyncValue.data([])});
@@ -117,8 +119,17 @@ class _$DetailViewModelStateImpl implements _DetailViewModelState {
   final AsyncValue<List<Book>> bookshelfState;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'DetailViewModelState(isAlreadySaved: $isAlreadySaved, bookshelfState: $bookshelfState)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DetailViewModelState'))
+      ..add(DiagnosticsProperty('isAlreadySaved', isAlreadySaved))
+      ..add(DiagnosticsProperty('bookshelfState', bookshelfState));
   }
 
   @override

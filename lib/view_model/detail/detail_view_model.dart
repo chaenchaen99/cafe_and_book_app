@@ -1,5 +1,6 @@
 import 'package:cafe_and_book/common/utils/cache_manager.dart';
 import 'package:cafe_and_book/model/book_response.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -35,6 +36,8 @@ class DetailViewModel extends _$DetailViewModel {
       //새롭게 저장된 책임을 알림
       state = state.copyWith(isAlreadySaved: false);
       await CacheManager.saveBookToBookShelf(book);
+      final books = await CacheManager.loadBookShelfFromCache();
+      debugPrint("책 저장시 총 갯수:${books?.length}");
     }
   }
 }

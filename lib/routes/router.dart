@@ -1,8 +1,9 @@
 import 'package:cafe_and_book/model/book_response.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:cafe_and_book/views/bookcafe/bookcafe_screen.dart';
+import 'package:cafe_and_book/views/bookreview/bookreview_screen.dart';
 import 'package:cafe_and_book/views/detail/detail_screen.dart';
-import 'package:cafe_and_book/views/library/library_screen.dart';
+import 'package:cafe_and_book/views/bookshelf/bookshelf_screen.dart';
 import 'package:cafe_and_book/views/main_screen.dart';
 import 'package:cafe_and_book/views/search/search_screen.dart';
 import 'package:cafe_and_book/views/setting/setting_screen.dart';
@@ -74,10 +75,29 @@ final routerProvider = Provider<GoRouter>((ref) {
             StatefulShellBranch(
               routes: [
                 GoRoute(
-                  path: "/library",
-                  name: RoutesName.LIBRARY,
-                  builder: (context, state) => const LibraryScreen(),
-                ),
+                    path: "/bookshelf",
+                    name: RoutesName.BOOKSHELF,
+                    builder: (context, state) => const BookshelfScreen(),
+                    routes: [
+                      GoRoute(
+                        path: "/review",
+                        name: RoutesName.REVIEW,
+                        pageBuilder: (context, state) {
+                          final book = state.extra as Book;
+                          return CustomTransitionPage(
+                            key: state.pageKey,
+                            child: BookReviewScreen(book: book),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation, // 페이드 효과
+                                child: child,
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ]),
               ],
             ),
             StatefulShellBranch(

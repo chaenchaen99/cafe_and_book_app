@@ -39,7 +39,7 @@ void showCustomSnackBar(BuildContext context, String message) {
         disabledTextColor: AppColors.hintColor,
         onPressed: () => {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.goNamed(RoutesName.LIBRARY);
+                context.goNamed(RoutesName.BOOKSHELF);
               })
             }),
   );

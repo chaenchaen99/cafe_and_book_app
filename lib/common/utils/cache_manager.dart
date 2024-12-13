@@ -43,7 +43,17 @@ class CacheManager {
   static Future<void> saveBookToBookShelf(Book book) async {
     final prefs = await SharedPreferences.getInstance();
 
-    final jsonData = jsonEncode([book]);
+    final existingData = prefs.getString(bookShelfKey);
+    List<Book> books = [];
+
+    if (existingData != null) {
+      final decodedData = jsonDecode(existingData) as List;
+      books = decodedData.map((e) => Book.fromJson(e)).toList();
+    }
+
+    books.add(book);
+
+    final jsonData = jsonEncode(books.map((e) => e.toJson()).toList());
     await prefs.setString(bookShelfKey, jsonData);
   }
 
