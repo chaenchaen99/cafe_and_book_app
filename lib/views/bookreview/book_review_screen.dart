@@ -1,3 +1,4 @@
+import 'package:cafe_and_book/common/utils/dropdown_button.dart';
 import 'package:cafe_and_book/model/book_model.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:cafe_and_book/view_model/bookreview/bookreview_view_model.dart';
@@ -169,43 +170,40 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
                   ),
                   height10,
                   tabStateIsMemo
-                      ? SizedBox(
-                          height: 32,
-                          child: Row(
-                            children: [
-                              const Text("최신순"),
-                              const Spacer(),
-                              GestureDetector(
-                                onTap: () {
-                                  context.pushNamed(RoutesName.MEMO,
-                                      extra: widget.book);
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 6),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: AppColors.second,
-                                  ),
-                                  child: const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.add,
-                                        color: AppColors.white,
-                                        size: 12,
-                                      ),
-                                      width4,
-                                      SmallText(
-                                        text: "추가하기",
-                                        color: Colors.white,
-                                      ),
-                                      width4
-                                    ],
-                                  ),
+                      ? Row(
+                          children: [
+                            const CustomDropdownButton(),
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                context.pushNamed(RoutesName.MEMO,
+                                    extra: widget.book);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: AppColors.second,
+                                ),
+                                child: const Row(
+                                  children: [
+                                    Icon(
+                                      Icons.add,
+                                      color: AppColors.white,
+                                      size: 12,
+                                    ),
+                                    width4,
+                                    SmallText(
+                                      text: "추가하기",
+                                      color: Colors.white,
+                                    ),
+                                    width4
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         )
                       : const SizedBox.shrink(),
                 ]),

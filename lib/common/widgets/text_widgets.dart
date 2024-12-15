@@ -132,3 +132,29 @@ class SmallText extends StatelessWidget {
     );
   }
 }
+
+class SmallText13 extends StatelessWidget {
+  final String text;
+  final FontWeight weight;
+  final Color color;
+
+  const SmallText13({
+    super.key,
+    required this.text,
+    this.weight = FontWeight.w400,
+    this.color = AppColors.contentPrimary,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: color,
+        fontSize: 13,
+        fontWeight: weight,
+      ),
+    );
+  }
+}

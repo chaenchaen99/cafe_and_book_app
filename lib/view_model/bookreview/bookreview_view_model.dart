@@ -35,6 +35,26 @@ class BookReviewViewModel extends _$BookReviewViewModel {
     }
   }
 
+  getSortedList(String sortedOption) {
+    if (sortedOption == '최신순') {
+      state = state.copyWith(
+        bookReviewsState: AsyncValue.data(
+          state.bookReviewsState.value!.copyWith(
+              memos: sortedByLatest(
+                  List.from(state.bookReviewsState.value!.memos))),
+        ),
+      );
+    } else {
+      state = state.copyWith(
+        bookReviewsState: AsyncValue.data(
+          state.bookReviewsState.value!.copyWith(
+              memos: sortedByOldest(
+                  List.from(state.bookReviewsState.value!.memos))),
+        ),
+      );
+    }
+  }
+
   List<Map<DateTime, String>> sortedByLatest(
       List<Map<DateTime, String>> memos) {
     memos.sort((a, b) {
