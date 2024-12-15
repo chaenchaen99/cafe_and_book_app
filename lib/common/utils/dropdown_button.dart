@@ -1,36 +1,33 @@
 import 'package:cafe_and_book/common/constants/app_colors.dart';
 import 'package:cafe_and_book/common/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../view_model/bookreview/bookreview_view_model.dart';
+class CustomDropdownButton extends StatelessWidget {
+  final String value;
+  final List<String> options;
+  final ValueChanged<String> onChanged;
 
-class CustomDropdownButton extends ConsumerStatefulWidget {
-  const CustomDropdownButton({super.key});
-
-  @override
-  ConsumerState<CustomDropdownButton> createState() =>
-      _CustomDropdownButtonState();
-}
-
-class _CustomDropdownButtonState extends ConsumerState<CustomDropdownButton> {
-  String sortOption = '최신순';
+  const CustomDropdownButton({
+    super.key,
+    required this.value,
+    required this.options,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      value: sortOption,
+      value: value,
       underline: const SizedBox(),
       isDense: true,
       alignment: Alignment.center,
       borderRadius: BorderRadius.circular(20),
       dropdownColor: AppColors.background,
       icon: const Padding(
-        padding: EdgeInsets.only(left: 0.0), // 아이콘 왼쪽에 패딩 추가
+        padding: EdgeInsets.only(left: 0.0),
         child: Icon(Icons.arrow_drop_down),
       ),
-      items: <String>['최신순', '오래된 순']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: options.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Center(
@@ -43,13 +40,7 @@ class _CustomDropdownButtonState extends ConsumerState<CustomDropdownButton> {
       }).toList(),
       onChanged: (String? newValue) {
         if (newValue != null) {
-          setState(() {
-            sortOption = newValue;
-          });
-          // TODO: 정렬
-          ref
-              .read(bookReviewViewModelProvider.notifier)
-              .getSortedList(newValue);
+          onChanged(newValue);
         }
       },
     );

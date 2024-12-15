@@ -31,6 +31,7 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
   late bool tabStateIsMemo;
+  String sortOption = '최신순';
 
   @override
   void initState() {
@@ -57,6 +58,13 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
           .read(bookReviewViewModelProvider.notifier)
           .fetchMemos(widget.book.title);
     });
+  }
+
+  void _handleSortChange(String newValue) {
+    setState(() {
+      sortOption = newValue;
+    });
+    ref.read(bookReviewViewModelProvider.notifier).getSortedList(newValue);
   }
 
   @override
@@ -172,7 +180,11 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
                   tabStateIsMemo
                       ? Row(
                           children: [
-                            const CustomDropdownButton(),
+                            CustomDropdownButton(
+                              value: sortOption,
+                              options: const ['최신순', '오래된 순'],
+                              onChanged: _handleSortChange,
+                            ),
                             const Spacer(),
                             GestureDetector(
                               onTap: () {

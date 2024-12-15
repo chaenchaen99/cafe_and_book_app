@@ -3,6 +3,7 @@ import 'package:cafe_and_book/views/bookshelf/widgets/bookshelf_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../common/utils/dropdown_button.dart';
 import '../../common/widgets/circular_background.dart';
 import '../../common/widgets/line.dart';
 import '../../common/widgets/text_widgets.dart';
@@ -18,6 +19,7 @@ class BookshelfScreen extends ConsumerStatefulWidget {
 class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
   final ScrollController _scrollController = ScrollController();
   int _itemLimit = 40;
+  String sortOption = '최신순';
 
   @override
   void initState() {
@@ -28,6 +30,12 @@ class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
 
   void _initializeBookshelf() {
     ref.read(bookshelfViewModelProvider.notifier).fetchMyBooksFromLocalDB();
+  }
+
+  void _handleSortChange(String newValue) {
+    setState(() {
+      sortOption = newValue;
+    });
   }
 
   @override
@@ -55,16 +63,12 @@ class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          GestureDetector(
-            onTap: () async {
-              // 정렬 기능 추가
-            },
-            child: const Padding(
-              padding: EdgeInsets.only(right: 16.0),
-              child: MediumText(
-                text: "최신순",
-                weight: FontWeight.w500,
-              ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8, top: 12),
+            child: CustomDropdownButton(
+              value: sortOption,
+              options: const ['최신순', '오래된 순'],
+              onChanged: _handleSortChange,
             ),
           ),
         ],
