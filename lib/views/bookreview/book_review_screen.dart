@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../common/constants/app_colors.dart';
+import '../../common/utils/custom_modal.dart';
 import '../../common/widgets/height_and_width.dart';
 import '../../common/widgets/line.dart';
 import '../../common/widgets/pop.dart';
@@ -82,10 +83,18 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
             children: [
               GestureDetector(
                 onTap: () async {
-                  ref
-                      .read(bookshelfViewModelProvider.notifier)
-                      .deleteMyBookFromBookShelf(widget.book.title);
-                  handlePop(context);
+                  showCustomModal(context,
+                      title: "메모가 삭제됩니다.",
+                      content: "정말 삭제하실건가요?",
+                      firstButtonText: "닫기",
+                      secondButtonText: "삭제하기", firstButtonTapped: () {
+                    handlePop(context);
+                  }, secondButtonTapped: () {
+                    ref
+                        .read(bookshelfViewModelProvider.notifier)
+                        .deleteMyBookFromBookShelf(widget.book.title);
+                    handlePop(context);
+                  }, iconPath: "assets/icons/alert.png");
                 },
                 child: const Padding(
                   padding: EdgeInsets.only(right: 16.0),
@@ -275,15 +284,32 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
               // 두 번째 탭: 내 메모 (ListView)
               bookMemos.when(
                   data: (data) {
-                    return ListView.separated(
-                      itemCount: data.memos.length,
-                      itemBuilder: (context, index) {
-                        final memo = data.memos[index];
-                        final entry = memo.entries.first;
-                        return MemoItem(date: entry.key, content: entry.value);
-                      },
-                      separatorBuilder: (context, index) => const Line(),
-                    );
+                    return (data.memos.isNotEmpty)
+                        ? ListView.separated(
+                            itemCount: data.memos.length,
+                            itemBuilder: (context, index) {
+                              final memo = data.memos[index];
+                              final entry = memo.entries.first;
+                              return MemoItem(
+                                  date: entry.key, content: entry.value);
+                            },
+                            separatorBuilder: (context, index) => const Line(),
+                          )
+                        : Column(
+                            children: [
+                              height16,
+                              Container(
+                                width: double.infinity,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: AppColors.white.withOpacity(0.9),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child:
+                                    const Center(child: Text("📋 메모를 작성해보세요")),
+                              ),
+                            ],
+                          );
                   },
                   error: (error, stack) => Center(
                         child: Text("에러가 발생했습니다: $error"),

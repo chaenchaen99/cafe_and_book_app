@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common/constants/app_colors.dart';
+import '../../common/utils/custom_modal.dart';
 import '../../common/widgets/pop.dart';
 import '../../common/widgets/text_widgets.dart';
 
@@ -24,6 +25,16 @@ class _MemoModifyScreenState extends ConsumerState<MemoModifyScreen> {
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
+
+    _textEditingController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -31,7 +42,24 @@ class _MemoModifyScreenState extends ConsumerState<MemoModifyScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-          onTap: () => handlePop(context),
+          onTap: () {
+            _textEditingController.text.isNotEmpty
+                ? showCustomModal(
+                    context,
+                    title: "메모를 작성중입니다.",
+                    content: "이전화면으로 돌아가실건가요?\n 작성하신 메모는 저장되지 않아요.",
+                    firstButtonText: "나가기",
+                    secondButtonText: "머무르기",
+                    firstButtonTapped: () {
+                      handlePop(context);
+                      handlePop(context);
+                    },
+                    secondButtonTapped: () {
+                      handlePop(context);
+                    },
+                  )
+                : handlePop(context);
+          },
           child: const Icon(
             Icons.arrow_back_ios_new_rounded,
             size: 20,
@@ -43,19 +71,22 @@ class _MemoModifyScreenState extends ConsumerState<MemoModifyScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  ref
-                      .read(bookReviewViewModelProvider.notifier)
-                      .addMemo(widget.book.title, _textEditingController.text);
+                  if (_textEditingController.text.isNotEmpty) {
+                    ref.read(bookReviewViewModelProvider.notifier).addMemo(
+                        widget.book.title, _textEditingController.text);
 
-                  showCustomSnackBar(context, "메모가 저장되었습니다.");
-                  handlePop(context);
+                    showCustomSnackBar(context, "메모가 저장되었습니다.");
+                    handlePop(context);
+                  }
                 },
-                child: const Padding(
-                  padding: EdgeInsets.only(right: 16.0),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
                   child: MediumText(
                     text: "저장",
                     weight: FontWeight.w500,
-                    color: AppColors.contentPrimary,
+                    color: _textEditingController.text.isNotEmpty
+                        ? AppColors.contentPrimary
+                        : AppColors.disabled,
                   ),
                 ),
               ),
@@ -83,6 +114,10 @@ class _MemoModifyScreenState extends ConsumerState<MemoModifyScreen> {
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
+                  hintText: "이곳에 메모를 작성해보세요:)",
+                  hintStyle:
+                      TextStyle(fontSize: 14, color: AppColors.hintColor),
+                  labelStyle: TextStyle(fontSize: 14),
                 ),
                 minLines: 10, // 최소 한 줄로 시작
                 maxLines: null,

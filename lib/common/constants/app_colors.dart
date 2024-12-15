@@ -15,6 +15,7 @@ class AppColors {
   static const Color booksDescription = Color.fromARGB(236, 63, 47, 35);
   static const Color contentPrimary30 = Color(0x30493628);
   static const Color hintColor = Color.fromARGB(255, 154, 147, 141);
+  static const Color disabled = Color.fromARGB(255, 154, 147, 141);
 
   static const Color error = Color.fromARGB(255, 228, 54, 31);
 
