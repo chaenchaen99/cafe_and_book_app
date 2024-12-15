@@ -1,4 +1,4 @@
-import 'package:cafe_and_book/views/bookreview/widget/reading_state.dart';
+import 'package:cafe_and_book/views/bookreview/widget/reading_state_badge.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'book_model.freezed.dart';
@@ -16,6 +16,7 @@ class BookModel with _$BookModel {
     required String pubdate,
     required String isbn,
     required String description,
+    @Default([]) List<Map<DateTime, String>> memos,
     @Default(ReadingState.initial) ReadingState readingState,
   }) = _BookModel;
 

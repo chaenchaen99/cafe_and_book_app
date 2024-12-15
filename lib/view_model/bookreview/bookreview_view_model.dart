@@ -1,25 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../common/utils/cache_manager.dart';
 import '../../model/book_model.dart';
-import '../../views/bookreview/widget/reading_state.dart';
+import '../../views/bookreview/widget/reading_state_badge.dart';
 
 part 'bookreview_view_model.g.dart';
+part 'bookreview_view_model.freezed.dart';
 
-// @freezed
-// class BookViewState with _$BookViewState {
-//   const factory BookViewState({
-//     @Default(false) bool isExpanded,
-//     @Default(ReadingState.initial) ReadingState readingState,
-//   }) = _BookViewState;
-// }
+@freezed
+class BookReviewState with _$BookReviewState {
+  const factory BookReviewState({
+    @Default(AsyncValue.loading()) AsyncValue<BookModel> bookReviewsState,
+  }) = _BookReviewState;
+}
 
 @riverpod
 class BookReviewViewModel extends _$BookReviewViewModel {
   @override
-  void build() {}
+  BookReviewState build() {
+    return const BookReviewState();
+  }
 
+  Future<void> fetchMemos(String bookTitle) async {
+    try {
+      final bookReview = await CacheManager.getBookByTitle(bookTitle);
+      state = state.copyWith(
+        bookReviewsState: AsyncValue.data(bookReview!
+            .copyWith(memos: sortedByLatest(List.from(bookReview.memos)))),
+      );
+    } catch (e, stack) {
+      state = state.copyWith(bookReviewsState: AsyncError(e, stack));
+    }
+  }
+
+  List<Map<DateTime, String>> sortedByLatest(
+      List<Map<DateTime, String>> memos) {
+    memos.sort((a, b) {
+      final aDate = a.keys.first;
+      final bDate = b.keys.first;
+      return bDate.compareTo(aDate); // 최신순으로 정렬
+    });
+    return memos;
+  }
+
+// 오래된 순 (오름차순) 정렬
+  List<Map<DateTime, String>> sortedByOldest(
+      List<Map<DateTime, String>> memos) {
+    memos.sort((a, b) {
+      final aDate = a.keys.first;
+      final bDate = b.keys.first;
+      return aDate.compareTo(bDate); // 오래된 순으로 정렬
+    });
+    return memos;
+  }
+
+  //읽기 상태 뱃지 상태 변경 및 저장
   Future<void> modifyMyBookReadingState(
       String title, ReadingState readingState) async {
     try {
@@ -40,11 +77,17 @@ class BookReviewViewModel extends _$BookReviewViewModel {
     }
   }
 
-  // toggleExpanded() {
-  //   state = state.copyWith(isExpanded: !state.isExpanded);
-  // }
-
-  changeState(String title, ReadingState currentState) async {
-    await modifyMyBookReadingState(title, currentState);
+  addMemo(String bookTitle, String content) async {
+    try {
+      final bookReview =
+          await CacheManager.addMemoToBook(bookTitle: bookTitle, memo: content);
+      state = state.copyWith(
+        bookReviewsState: AsyncValue.data(bookReview!.copyWith(
+          memos: sortedByLatest(List.from(bookReview.memos)),
+        )),
+      );
+    } catch (e, stack) {
+      state = state.copyWith(bookReviewsState: AsyncError(e, stack));
+    }
   }
 }

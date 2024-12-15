@@ -5,6 +5,7 @@ class RoutesName {
   static const String DETAIL = 'detail';
   static const String BOOKSHELF = 'bookshelf';
   static const String REVIEW = 'review';
+  static const String MEMO = 'memo';
   static const String BOOKCAFE = 'bookcafe';
   static const String SETTING = 'setting';
 }

@@ -41,4 +41,14 @@ class BookshelfViewModel extends _$BookshelfViewModel {
       },
     );
   }
+
+  deleteMyBookFromBookShelf(String bookTitle) async {
+    try {
+      CacheManager.deleteBookFromShelf(bookTitle);
+    } catch (e, _) {
+      state = state.copyWith(
+        mybooksState: AsyncValue.error(e, _),
+      );
+    }
+  }
 }

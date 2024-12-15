@@ -1,13 +1,17 @@
 import 'package:cafe_and_book/model/book_model.dart';
+import 'package:cafe_and_book/routes/routes_name.dart';
+import 'package:cafe_and_book/view_model/bookreview/bookreview_view_model.dart';
+import 'package:cafe_and_book/view_model/bookshelf/bookshelf_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../common/constants/app_colors.dart';
 import '../../common/widgets/height_and_width.dart';
 import '../../common/widgets/line.dart';
 import '../../common/widgets/pop.dart';
 import '../../common/widgets/text_widgets.dart';
-import 'widget/reading_state.dart';
-import 'widget/review_item.dart';
+import 'widget/reading_state_badge.dart';
+import 'widget/memo_item.dart';
 
 class BookReviewScreen extends ConsumerStatefulWidget {
   final BookModel book;
@@ -24,12 +28,33 @@ class BookReviewScreen extends ConsumerStatefulWidget {
 class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  late bool tabStateIsMemo;
 
   @override
   void initState() {
     super.initState();
     // TabController 초기화
     _tabController = TabController(length: 2, vsync: this);
+    tabStateIsMemo = false;
+
+    // 탭 변경을 감지하여 tabStateIsMemo를 업데이트
+    _tabController.addListener(() {
+      if (_tabController.index == 1) {
+        setState(() {
+          tabStateIsMemo = true;
+        });
+      } else {
+        setState(() {
+          tabStateIsMemo = false;
+        });
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(bookReviewViewModelProvider.notifier)
+          .fetchMemos(widget.book.title);
+    });
   }
 
   @override
@@ -40,6 +65,8 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
 
   @override
   Widget build(BuildContext context) {
+    final bookMemos = ref.watch(bookReviewViewModelProvider).bookReviewsState;
+
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -54,13 +81,18 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: () async {},
+                onTap: () async {
+                  ref
+                      .read(bookshelfViewModelProvider.notifier)
+                      .deleteMyBookFromBookShelf(widget.book.title);
+                  handlePop(context);
+                },
                 child: const Padding(
                   padding: EdgeInsets.only(right: 16.0),
                   child: MediumText(
                     text: "삭제",
                     weight: FontWeight.w500,
-                    color: AppColors.tabBarText,
+                    color: AppColors.contentPrimary,
                   ),
                 ),
               ),
@@ -126,6 +158,47 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
                       Tab(text: "내 메모"),
                     ],
                   ),
+                  height10,
+                  tabStateIsMemo
+                      ? SizedBox(
+                          height: 32,
+                          child: Row(
+                            children: [
+                              const Text("최신순"),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  context.pushNamed(RoutesName.MEMO,
+                                      extra: widget.book);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: AppColors.second,
+                                  ),
+                                  child: const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.add,
+                                        color: AppColors.white,
+                                        size: 12,
+                                      ),
+                                      width4,
+                                      SmallText(
+                                        text: "추가하기",
+                                        color: Colors.white,
+                                      ),
+                                      width4
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                 ]),
               ),
             ),
@@ -200,28 +273,24 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
                 ),
               ),
               // 두 번째 탭: 내 메모 (ListView)
-              ListView.separated(
-                itemCount: 100,
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SmallText(
-                          text: "2024.12.24",
-                          color: Colors.black54,
-                        ),
-                        height4,
-                        ReviewItem(
-                          content: "내용내용내용내용내용내용내용내용내용",
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => const Line(),
-              ),
+              bookMemos.when(
+                  data: (data) {
+                    return ListView.separated(
+                      itemCount: data.memos.length,
+                      itemBuilder: (context, index) {
+                        final memo = data.memos[index];
+                        final entry = memo.entries.first;
+                        return MemoItem(date: entry.key, content: entry.value);
+                      },
+                      separatorBuilder: (context, index) => const Line(),
+                    );
+                  },
+                  error: (error, stack) => Center(
+                        child: Text("에러가 발생했습니다: $error"),
+                      ),
+                  loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      )),
             ],
           ),
         ),

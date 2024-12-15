@@ -7,12 +7,12 @@ part of 'bookreview_view_model.dart';
 // **************************************************************************
 
 String _$bookReviewViewModelHash() =>
-    r'1d65bd2a5890701e04da5d6fa2ba005336640bb7';
+    r'3b8bcd0c575d198c2687be8b51831a37be1c0cb0';
 
 /// See also [BookReviewViewModel].
 @ProviderFor(BookReviewViewModel)
 final bookReviewViewModelProvider =
-    AutoDisposeNotifierProvider<BookReviewViewModel, void>.internal(
+    AutoDisposeNotifierProvider<BookReviewViewModel, BookReviewState>.internal(
   BookReviewViewModel.new,
   name: r'bookReviewViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final bookReviewViewModelProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$BookReviewViewModel = AutoDisposeNotifier<void>;
+typedef _$BookReviewViewModel = AutoDisposeNotifier<BookReviewState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

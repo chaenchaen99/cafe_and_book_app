@@ -7,6 +7,7 @@ class CacheManager {
   static const String bookShelfKey = "bookshelf_cache_key";
   static const String lastFetchedKey = "last_fetched_key";
 
+  //---베스트 셀러 캐시 관련---
   static Future<void> saveBestSellerListToCache(
       Map<String, dynamic> data) async {
     final prefs = await SharedPreferences.getInstance();
@@ -40,6 +41,7 @@ class CacheManager {
     return null;
   }
 
+  //---책 저장 관련---
   static Future<void> saveBookToBookShelf(BookModel book) async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -62,27 +64,110 @@ class CacheManager {
     final jsonData = prefs.getString(bookShelfKey);
     if (jsonData == null) return null;
 
-    // JSON 데이터를 List<Map<String, dynamic>>로 디코딩
     final List<dynamic> decodedMap = jsonDecode(jsonData);
 
-    // List<Book>으로 변환
     return decodedMap.map((bookJson) => BookModel.fromJson(bookJson)).toList();
   }
 
-  static Future<void> deleteBookFromShelf(String bookTitle) async {
+  static Future<List<BookModel>?> deleteBookFromShelf(String bookTitle) async {
     final prefs = await SharedPreferences.getInstance();
     final bookShelf = await loadBookShelfFromCache() ?? [];
 
-    // 책을 찾아서 삭제
     bookShelf.removeWhere((book) => book.title == bookTitle);
 
-    // 삭제 후 수정된 서재 저장
     final jsonData = jsonEncode(bookShelf);
     await prefs.setString(bookShelfKey, jsonData);
+
+    return bookShelf;
   }
 
   static Future<void> clearBookShelfCache() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(bookShelfKey);
+  }
+
+  //---책 메모 관련---
+  static Future<BookModel?> getBookByTitle(String bookTitle) async {
+    final prefs = await SharedPreferences.getInstance();
+    final bookShelf = await loadBookShelfFromCache() ?? [];
+
+    // bookTitle과 일치하는 책을 찾음
+    final books = bookShelf.where((book) => book.title == bookTitle).toList();
+
+    if (books.isNotEmpty) {
+      return books.first; // 첫 번째 일치하는 책 반환
+    } else {
+      return null; // 일치하는 책이 없으면 null 반환
+    }
+  }
+
+  static Future<BookModel?> addMemoToBook(
+      {required String bookTitle, required String memo}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final bookShelf = await loadBookShelfFromCache() ?? [];
+
+    final bookIndex = bookShelf.indexWhere((book) => book.title == bookTitle);
+    if (bookIndex != -1) {
+      final book = bookShelf[bookIndex];
+      final newMemo = {DateTime.now(): memo};
+
+      final updatedBook =
+          book.copyWith(memos: List.from(book.memos)..add(newMemo));
+
+      bookShelf[bookIndex] = updatedBook;
+
+      final jsonData = jsonEncode(bookShelf.map((e) => e.toJson()).toList());
+      await prefs.setString(bookShelfKey, jsonData);
+
+      return updatedBook;
+    } else {
+      return null;
+    }
+  }
+
+  static Future<void> modifyMemoInBook(
+      String bookTitle, DateTime timestamp, String newMemo) async {
+    final prefs = await SharedPreferences.getInstance();
+    final bookShelf = await loadBookShelfFromCache() ?? [];
+
+    final bookIndex = bookShelf.indexWhere((book) => book.title == bookTitle);
+    if (bookIndex != -1) {
+      final book = bookShelf[bookIndex];
+
+      final updatedMemos = book.memos.map((memo) {
+        if (memo.containsKey(timestamp)) {
+          return {timestamp: newMemo};
+        }
+        return memo;
+      }).toList();
+
+      final updatedBook = book.copyWith(memos: updatedMemos);
+
+      bookShelf[bookIndex] = updatedBook;
+
+      final jsonData = jsonEncode(bookShelf.map((e) => e.toJson()).toList());
+      await prefs.setString(bookShelfKey, jsonData);
+    }
+  }
+
+  static Future<void> deleteMemoFromBook(
+      String bookTitle, DateTime timestamp) async {
+    final prefs = await SharedPreferences.getInstance();
+    final bookShelf = await loadBookShelfFromCache() ?? [];
+
+    final bookIndex = bookShelf.indexWhere((book) => book.title == bookTitle);
+    if (bookIndex != -1) {
+      final book = bookShelf[bookIndex];
+
+      final updatedMemos = book.memos.where((memo) {
+        return !memo.containsKey(timestamp);
+      }).toList();
+
+      final updatedBook = book.copyWith(memos: updatedMemos);
+
+      bookShelf[bookIndex] = updatedBook;
+      final jsonData = jsonEncode(bookShelf.map((e) => e.toJson()).toList());
+      await prefs.setString(bookShelfKey, jsonData);
+    }
   }
 }

@@ -2,7 +2,8 @@ import 'package:cafe_and_book/model/book_model.dart';
 import 'package:cafe_and_book/model/book_response.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:cafe_and_book/views/bookcafe/bookcafe_screen.dart';
-import 'package:cafe_and_book/views/bookreview/bookreview_screen.dart';
+import 'package:cafe_and_book/views/bookreview/book_review_screen.dart';
+import 'package:cafe_and_book/views/bookreview/memo_modify_screen.dart';
 import 'package:cafe_and_book/views/detail/detail_screen.dart';
 import 'package:cafe_and_book/views/bookshelf/bookshelf_screen.dart';
 import 'package:cafe_and_book/views/main_screen.dart';
@@ -81,23 +82,42 @@ final routerProvider = Provider<GoRouter>((ref) {
                     builder: (context, state) => const BookshelfScreen(),
                     routes: [
                       GoRoute(
-                        path: "/review",
-                        name: RoutesName.REVIEW,
-                        pageBuilder: (context, state) {
-                          final book = state.extra as BookModel;
-                          return CustomTransitionPage(
-                            key: state.pageKey,
-                            child: BookReviewScreen(book: book),
-                            transitionsBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              return FadeTransition(
-                                opacity: animation, // 페이드 효과
-                                child: child,
-                              );
-                            },
-                          );
-                        },
-                      ),
+                          path: "/review",
+                          name: RoutesName.REVIEW,
+                          pageBuilder: (context, state) {
+                            final book = state.extra as BookModel;
+                            return CustomTransitionPage(
+                              key: state.pageKey,
+                              child: BookReviewScreen(book: book),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                return FadeTransition(
+                                  opacity: animation, // 페이드 효과
+                                  child: child,
+                                );
+                              },
+                            );
+                          },
+                          routes: [
+                            GoRoute(
+                              path: "/memo",
+                              name: RoutesName.MEMO,
+                              pageBuilder: (context, state) {
+                                final book = state.extra as BookModel;
+                                return CustomTransitionPage(
+                                  key: state.pageKey,
+                                  child: MemoModifyScreen(book: book),
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    return FadeTransition(
+                                      opacity: animation, // 페이드 효과
+                                      child: child,
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ]),
                     ]),
               ],
             ),

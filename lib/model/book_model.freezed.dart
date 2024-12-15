@@ -29,6 +29,7 @@ mixin _$BookModel {
   String get pubdate => throw _privateConstructorUsedError;
   String get isbn => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  List<Map<DateTime, String>> get memos => throw _privateConstructorUsedError;
   ReadingState get readingState => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,6 +53,7 @@ abstract class $BookModelCopyWith<$Res> {
       String pubdate,
       String isbn,
       String description,
+      List<Map<DateTime, String>> memos,
       ReadingState readingState});
 }
 
@@ -77,6 +79,7 @@ class _$BookModelCopyWithImpl<$Res, $Val extends BookModel>
     Object? pubdate = null,
     Object? isbn = null,
     Object? description = null,
+    Object? memos = null,
     Object? readingState = null,
   }) {
     return _then(_value.copyWith(
@@ -116,6 +119,10 @@ class _$BookModelCopyWithImpl<$Res, $Val extends BookModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      memos: null == memos
+          ? _value.memos
+          : memos // ignore: cast_nullable_to_non_nullable
+              as List<Map<DateTime, String>>,
       readingState: null == readingState
           ? _value.readingState
           : readingState // ignore: cast_nullable_to_non_nullable
@@ -142,6 +149,7 @@ abstract class _$$BookModelImplCopyWith<$Res>
       String pubdate,
       String isbn,
       String description,
+      List<Map<DateTime, String>> memos,
       ReadingState readingState});
 }
 
@@ -165,6 +173,7 @@ class __$$BookModelImplCopyWithImpl<$Res>
     Object? pubdate = null,
     Object? isbn = null,
     Object? description = null,
+    Object? memos = null,
     Object? readingState = null,
   }) {
     return _then(_$BookModelImpl(
@@ -204,6 +213,10 @@ class __$$BookModelImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      memos: null == memos
+          ? _value._memos
+          : memos // ignore: cast_nullable_to_non_nullable
+              as List<Map<DateTime, String>>,
       readingState: null == readingState
           ? _value.readingState
           : readingState // ignore: cast_nullable_to_non_nullable
@@ -225,7 +238,9 @@ class _$BookModelImpl implements _BookModel {
       required this.pubdate,
       required this.isbn,
       required this.description,
-      this.readingState = ReadingState.initial});
+      final List<Map<DateTime, String>> memos = const [],
+      this.readingState = ReadingState.initial})
+      : _memos = memos;
 
   factory _$BookModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BookModelImplFromJson(json);
@@ -248,13 +263,22 @@ class _$BookModelImpl implements _BookModel {
   final String isbn;
   @override
   final String description;
+  final List<Map<DateTime, String>> _memos;
+  @override
+  @JsonKey()
+  List<Map<DateTime, String>> get memos {
+    if (_memos is EqualUnmodifiableListView) return _memos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_memos);
+  }
+
   @override
   @JsonKey()
   final ReadingState readingState;
 
   @override
   String toString() {
-    return 'BookModel(title: $title, link: $link, image: $image, author: $author, discount: $discount, publisher: $publisher, pubdate: $pubdate, isbn: $isbn, description: $description, readingState: $readingState)';
+    return 'BookModel(title: $title, link: $link, image: $image, author: $author, discount: $discount, publisher: $publisher, pubdate: $pubdate, isbn: $isbn, description: $description, memos: $memos, readingState: $readingState)';
   }
 
   @override
@@ -274,14 +298,26 @@ class _$BookModelImpl implements _BookModel {
             (identical(other.isbn, isbn) || other.isbn == isbn) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            const DeepCollectionEquality().equals(other._memos, _memos) &&
             (identical(other.readingState, readingState) ||
                 other.readingState == readingState));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, link, image, author,
-      discount, publisher, pubdate, isbn, description, readingState);
+  int get hashCode => Object.hash(
+      runtimeType,
+      title,
+      link,
+      image,
+      author,
+      discount,
+      publisher,
+      pubdate,
+      isbn,
+      description,
+      const DeepCollectionEquality().hash(_memos),
+      readingState);
 
   @JsonKey(ignore: true)
   @override
@@ -308,6 +344,7 @@ abstract class _BookModel implements BookModel {
       required final String pubdate,
       required final String isbn,
       required final String description,
+      final List<Map<DateTime, String>> memos,
       final ReadingState readingState}) = _$BookModelImpl;
 
   factory _BookModel.fromJson(Map<String, dynamic> json) =
@@ -331,6 +368,8 @@ abstract class _BookModel implements BookModel {
   String get isbn;
   @override
   String get description;
+  @override
+  List<Map<DateTime, String>> get memos;
   @override
   ReadingState get readingState;
   @override

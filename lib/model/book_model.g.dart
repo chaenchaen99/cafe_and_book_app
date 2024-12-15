@@ -17,6 +17,12 @@ _$BookModelImpl _$$BookModelImplFromJson(Map<String, dynamic> json) =>
       pubdate: json['pubdate'] as String,
       isbn: json['isbn'] as String,
       description: json['description'] as String,
+      memos: (json['memos'] as List<dynamic>?)
+              ?.map((e) => (e as Map<String, dynamic>).map(
+                    (k, e) => MapEntry(DateTime.parse(k), e as String),
+                  ))
+              .toList() ??
+          const [],
       readingState:
           $enumDecodeNullable(_$ReadingStateEnumMap, json['readingState']) ??
               ReadingState.initial,
@@ -33,6 +39,9 @@ Map<String, dynamic> _$$BookModelImplToJson(_$BookModelImpl instance) =>
       'pubdate': instance.pubdate,
       'isbn': instance.isbn,
       'description': instance.description,
+      'memos': instance.memos
+          .map((e) => e.map((k, e) => MapEntry(k.toIso8601String(), e)))
+          .toList(),
       'readingState': _$ReadingStateEnumMap[instance.readingState]!,
     };
 

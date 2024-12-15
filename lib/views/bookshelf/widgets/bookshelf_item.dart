@@ -1,6 +1,6 @@
 import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
-import 'package:cafe_and_book/views/bookreview/widget/reading_state.dart';
+import 'package:cafe_and_book/views/bookreview/widget/reading_state_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
