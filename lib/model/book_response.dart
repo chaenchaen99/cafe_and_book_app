@@ -4,22 +4,22 @@ part 'book_response.freezed.dart';
 part 'book_response.g.dart';
 
 @freezed
-class BookResponse with _$BookResponse {
-  const factory BookResponse({
+class BookListResponse with _$BookListResponse {
+  const factory BookListResponse({
     required String lastBuildDate,
     required int total,
     required int start,
     required int display,
-    required List<Book> items,
-  }) = _BookResponse;
+    required List<BookResponse> items,
+  }) = _BookListResponse;
 
-  factory BookResponse.fromJson(Map<String, dynamic> json) =>
-      _$BookResponseFromJson(json);
+  factory BookListResponse.fromJson(Map<String, dynamic> json) =>
+      _$BookListResponseFromJson(json);
 }
 
 @freezed
-class Book with _$Book {
-  const factory Book({
+class BookResponse with _$BookResponse {
+  const factory BookResponse({
     required String title,
     required String link,
     required String image,
@@ -29,7 +29,8 @@ class Book with _$Book {
     required String pubdate,
     required String isbn,
     required String description,
-  }) = _Book;
+  }) = _BookResponse;
 
-  factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
+  factory BookResponse.fromJson(Map<String, dynamic> json) =>
+      _$BookResponseFromJson(json);
 }

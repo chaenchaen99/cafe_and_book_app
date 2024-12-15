@@ -6,18 +6,20 @@ part of 'book_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BookResponseImpl _$$BookResponseImplFromJson(Map<String, dynamic> json) =>
-    _$BookResponseImpl(
+_$BookListResponseImpl _$$BookListResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$BookListResponseImpl(
       lastBuildDate: json['lastBuildDate'] as String,
       total: (json['total'] as num).toInt(),
       start: (json['start'] as num).toInt(),
       display: (json['display'] as num).toInt(),
       items: (json['items'] as List<dynamic>)
-          .map((e) => Book.fromJson(e as Map<String, dynamic>))
+          .map((e) => BookResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$BookResponseImplToJson(_$BookResponseImpl instance) =>
+Map<String, dynamic> _$$BookListResponseImplToJson(
+        _$BookListResponseImpl instance) =>
     <String, dynamic>{
       'lastBuildDate': instance.lastBuildDate,
       'total': instance.total,
@@ -26,7 +28,8 @@ Map<String, dynamic> _$$BookResponseImplToJson(_$BookResponseImpl instance) =>
       'items': instance.items,
     };
 
-_$BookImpl _$$BookImplFromJson(Map<String, dynamic> json) => _$BookImpl(
+_$BookResponseImpl _$$BookResponseImplFromJson(Map<String, dynamic> json) =>
+    _$BookResponseImpl(
       title: json['title'] as String,
       link: json['link'] as String,
       image: json['image'] as String,
@@ -38,7 +41,7 @@ _$BookImpl _$$BookImplFromJson(Map<String, dynamic> json) => _$BookImpl(
       description: json['description'] as String,
     );
 
-Map<String, dynamic> _$$BookImplToJson(_$BookImpl instance) =>
+Map<String, dynamic> _$$BookResponseImplToJson(_$BookResponseImpl instance) =>
     <String, dynamic>{
       'title': instance.title,
       'link': instance.link,

@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BookshelfViewModelState {
-  AsyncValue<List<Book>> get mybooksState => throw _privateConstructorUsedError;
+  AsyncValue<List<BookModel>> get mybooksState =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BookshelfViewModelStateCopyWith<BookshelfViewModelState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $BookshelfViewModelStateCopyWith<$Res> {
           $Res Function(BookshelfViewModelState) then) =
       _$BookshelfViewModelStateCopyWithImpl<$Res, BookshelfViewModelState>;
   @useResult
-  $Res call({AsyncValue<List<Book>> mybooksState});
+  $Res call({AsyncValue<List<BookModel>> mybooksState});
 }
 
 /// @nodoc
@@ -52,7 +53,7 @@ class _$BookshelfViewModelStateCopyWithImpl<$Res,
       mybooksState: null == mybooksState
           ? _value.mybooksState
           : mybooksState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<Book>>,
+              as AsyncValue<List<BookModel>>,
     ) as $Val);
   }
 }
@@ -66,7 +67,7 @@ abstract class _$$BookshelfViewModelStateImplCopyWith<$Res>
       __$$BookshelfViewModelStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AsyncValue<List<Book>> mybooksState});
+  $Res call({AsyncValue<List<BookModel>> mybooksState});
 }
 
 /// @nodoc
@@ -88,7 +89,7 @@ class __$$BookshelfViewModelStateImplCopyWithImpl<$Res>
       mybooksState: null == mybooksState
           ? _value.mybooksState
           : mybooksState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<Book>>,
+              as AsyncValue<List<BookModel>>,
     ));
   }
 }
@@ -101,7 +102,7 @@ class _$BookshelfViewModelStateImpl implements _BookshelfViewModelState {
 
   @override
   @JsonKey()
-  final AsyncValue<List<Book>> mybooksState;
+  final AsyncValue<List<BookModel>> mybooksState;
 
   @override
   String toString() {
@@ -130,11 +131,11 @@ class _$BookshelfViewModelStateImpl implements _BookshelfViewModelState {
 
 abstract class _BookshelfViewModelState implements BookshelfViewModelState {
   const factory _BookshelfViewModelState(
-          {final AsyncValue<List<Book>> mybooksState}) =
+          {final AsyncValue<List<BookModel>> mybooksState}) =
       _$BookshelfViewModelStateImpl;
 
   @override
-  AsyncValue<List<Book>> get mybooksState;
+  AsyncValue<List<BookModel>> get mybooksState;
   @override
   @JsonKey(ignore: true)
   _$$BookshelfViewModelStateImplCopyWith<_$BookshelfViewModelStateImpl>

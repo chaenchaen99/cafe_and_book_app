@@ -10,7 +10,7 @@ import '../../common/widgets/snackbar.dart';
 import '../../model/book_response.dart';
 
 class DetailScreen extends ConsumerWidget {
-  final Book book;
+  final BookResponse book;
   const DetailScreen({super.key, required this.book});
 
   @override

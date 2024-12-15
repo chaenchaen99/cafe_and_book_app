@@ -1,7 +1,8 @@
 import 'package:cafe_and_book/common/utils/cache_manager.dart';
+import 'package:cafe_and_book/model/book_model.dart';
 import 'package:cafe_and_book/model/book_response.dart';
+import 'package:cafe_and_book/views/bookreview/widget/reading_state.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,7 +13,7 @@ part 'detail_view_model.g.dart';
 class DetailViewModelState with _$DetailViewModelState {
   const factory DetailViewModelState({
     @Default(false) bool isAlreadySaved,
-    @Default(AsyncValue.data([])) AsyncValue<List<Book>> bookshelfState,
+    @Default(AsyncValue.data([])) AsyncValue<List<BookModel>> bookshelfState,
   }) = _DetailViewModelState;
 }
 
@@ -23,8 +24,8 @@ class DetailViewModel extends _$DetailViewModel {
     return const DetailViewModelState();
   }
 
-  saveBookToBookShelf(Book book) async {
-    final List<Book> bookShelf =
+  saveBookToBookShelf(BookResponse book) async {
+    final List<BookModel> bookShelf =
         await CacheManager.loadBookShelfFromCache() ?? [];
 
     final existingBookIndex =
@@ -35,9 +36,18 @@ class DetailViewModel extends _$DetailViewModel {
     } else {
       //새롭게 저장된 책임을 알림
       state = state.copyWith(isAlreadySaved: false);
-      await CacheManager.saveBookToBookShelf(book);
-      final books = await CacheManager.loadBookShelfFromCache();
-      debugPrint("책 저장시 총 갯수:${books?.length}");
+      await CacheManager.saveBookToBookShelf(BookModel(
+        title: book.title,
+        link: book.link,
+        image: book.image,
+        author: book.author,
+        discount: book.discount,
+        publisher: book.publisher,
+        pubdate: book.pubdate,
+        isbn: book.isbn,
+        description: book.description,
+        readingState: ReadingState.initial,
+      ));
     }
   }
 }

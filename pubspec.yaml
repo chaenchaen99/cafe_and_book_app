@@ -21,7 +21,6 @@ dependencies:
   flutter_svg: ^2.0.10
   image_picker: ^1.1.2
   shared_preferences: ^2.3.3
-  riverpod_lint: ^2.6.3
   xml: ^6.5.0
 
 dev_dependencies:
@@ -33,6 +32,8 @@ dev_dependencies:
   json_serializable: ^6.8.0
   retrofit_generator: ^8.1.2
   riverpod_generator: ^2.4.0
+  riverpod_lint: ^2.6.3
+  custom_lint: ^0.6.4
 flutter:
   uses-material-design: true
 

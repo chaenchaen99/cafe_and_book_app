@@ -24,7 +24,7 @@ class _NaverBookApi implements NaverBookApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<BookResponse> getBestSellerList(
+  Future<BookListResponse> getBestSellerList(
     String query,
     String sort,
     int display,
@@ -37,7 +37,7 @@ class _NaverBookApi implements NaverBookApi {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BookResponse>(Options(
+    final _options = _setStreamType<BookListResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -54,9 +54,9 @@ class _NaverBookApi implements NaverBookApi {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BookResponse _value;
+    late BookListResponse _value;
     try {
-      _value = BookResponse.fromJson(_result.data!);
+      _value = BookListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -65,7 +65,7 @@ class _NaverBookApi implements NaverBookApi {
   }
 
   @override
-  Future<BookResponse> getBookSearchResult(
+  Future<BookListResponse> getBookSearchResult(
     String query,
     int display,
   ) async {
@@ -76,7 +76,7 @@ class _NaverBookApi implements NaverBookApi {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BookResponse>(Options(
+    final _options = _setStreamType<BookListResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -93,9 +93,9 @@ class _NaverBookApi implements NaverBookApi {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BookResponse _value;
+    late BookListResponse _value;
     try {
-      _value = BookResponse.fromJson(_result.data!);
+      _value = BookListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

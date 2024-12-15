@@ -1,14 +1,15 @@
 import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
+import 'package:cafe_and_book/views/bookreview/widget/reading_state.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../common/constants/app_colors.dart';
 import '../../../common/widgets/text_widgets.dart';
-import '../../../model/book_response.dart';
-import 'reading_state.dart';
+import '../../../model/book_model.dart';
 
 class BookshelfItem extends StatelessWidget {
-  final Book book;
+  final BookModel book;
   const BookshelfItem({
     super.key,
     required this.book,
@@ -53,7 +54,22 @@ class BookshelfItem extends StatelessWidget {
                     text: book.title,
                   ),
                   height10,
-                  const ReadingStateBadge(state: ReadingState.initial),
+                  Container(
+                    height: readingBadgeHeight,
+                    width: shrinkedReadingBadgeWidth,
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: book.readingState.color),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 2.0),
+                      child: SmallText(
+                        text: book.readingState.label,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

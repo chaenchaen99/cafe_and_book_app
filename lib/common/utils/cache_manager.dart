@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:cafe_and_book/model/book_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../model/book_response.dart';
 
 class CacheManager {
   static const String bestSellerKey = "bestseller_list_cache_key";
@@ -40,15 +40,15 @@ class CacheManager {
     return null;
   }
 
-  static Future<void> saveBookToBookShelf(Book book) async {
+  static Future<void> saveBookToBookShelf(BookModel book) async {
     final prefs = await SharedPreferences.getInstance();
 
     final existingData = prefs.getString(bookShelfKey);
-    List<Book> books = [];
+    List<BookModel> books = [];
 
     if (existingData != null) {
       final decodedData = jsonDecode(existingData) as List;
-      books = decodedData.map((e) => Book.fromJson(e)).toList();
+      books = decodedData.map((e) => BookModel.fromJson(e)).toList();
     }
 
     books.add(book);
@@ -57,7 +57,7 @@ class CacheManager {
     await prefs.setString(bookShelfKey, jsonData);
   }
 
-  static Future<List<Book>?> loadBookShelfFromCache() async {
+  static Future<List<BookModel>?> loadBookShelfFromCache() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonData = prefs.getString(bookShelfKey);
     if (jsonData == null) return null;
@@ -66,7 +66,7 @@ class CacheManager {
     final List<dynamic> decodedMap = jsonDecode(jsonData);
 
     // List<Book>으로 변환
-    return decodedMap.map((bookJson) => Book.fromJson(bookJson)).toList();
+    return decodedMap.map((bookJson) => BookModel.fromJson(bookJson)).toList();
   }
 
   static Future<void> deleteBookFromShelf(String bookTitle) async {

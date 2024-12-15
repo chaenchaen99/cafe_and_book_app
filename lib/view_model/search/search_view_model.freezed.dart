@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SearchViewModelState {
-  List<Book> get searchResult => throw _privateConstructorUsedError;
-  AsyncValue<List<Book>> get searchState => throw _privateConstructorUsedError;
+  List<BookResponse> get searchResult => throw _privateConstructorUsedError;
+  AsyncValue<List<BookResponse>> get searchState =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SearchViewModelStateCopyWith<SearchViewModelState> get copyWith =>
@@ -30,7 +31,9 @@ abstract class $SearchViewModelStateCopyWith<$Res> {
           $Res Function(SearchViewModelState) then) =
       _$SearchViewModelStateCopyWithImpl<$Res, SearchViewModelState>;
   @useResult
-  $Res call({List<Book> searchResult, AsyncValue<List<Book>> searchState});
+  $Res call(
+      {List<BookResponse> searchResult,
+      AsyncValue<List<BookResponse>> searchState});
 }
 
 /// @nodoc
@@ -54,11 +57,11 @@ class _$SearchViewModelStateCopyWithImpl<$Res,
       searchResult: null == searchResult
           ? _value.searchResult
           : searchResult // ignore: cast_nullable_to_non_nullable
-              as List<Book>,
+              as List<BookResponse>,
       searchState: null == searchState
           ? _value.searchState
           : searchState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<Book>>,
+              as AsyncValue<List<BookResponse>>,
     ) as $Val);
   }
 }
@@ -71,7 +74,9 @@ abstract class _$$SearchViewModelStateImplCopyWith<$Res>
       __$$SearchViewModelStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Book> searchResult, AsyncValue<List<Book>> searchState});
+  $Res call(
+      {List<BookResponse> searchResult,
+      AsyncValue<List<BookResponse>> searchState});
 }
 
 /// @nodoc
@@ -92,11 +97,11 @@ class __$$SearchViewModelStateImplCopyWithImpl<$Res>
       searchResult: null == searchResult
           ? _value._searchResult
           : searchResult // ignore: cast_nullable_to_non_nullable
-              as List<Book>,
+              as List<BookResponse>,
       searchState: null == searchState
           ? _value.searchState
           : searchState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<Book>>,
+              as AsyncValue<List<BookResponse>>,
     ));
   }
 }
@@ -105,14 +110,14 @@ class __$$SearchViewModelStateImplCopyWithImpl<$Res>
 
 class _$SearchViewModelStateImpl implements _SearchViewModelState {
   const _$SearchViewModelStateImpl(
-      {final List<Book> searchResult = const [],
+      {final List<BookResponse> searchResult = const [],
       this.searchState = const AsyncValue.data([])})
       : _searchResult = searchResult;
 
-  final List<Book> _searchResult;
+  final List<BookResponse> _searchResult;
   @override
   @JsonKey()
-  List<Book> get searchResult {
+  List<BookResponse> get searchResult {
     if (_searchResult is EqualUnmodifiableListView) return _searchResult;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_searchResult);
@@ -120,7 +125,7 @@ class _$SearchViewModelStateImpl implements _SearchViewModelState {
 
   @override
   @JsonKey()
-  final AsyncValue<List<Book>> searchState;
+  final AsyncValue<List<BookResponse>> searchState;
 
   @override
   String toString() {
@@ -153,13 +158,14 @@ class _$SearchViewModelStateImpl implements _SearchViewModelState {
 
 abstract class _SearchViewModelState implements SearchViewModelState {
   const factory _SearchViewModelState(
-      {final List<Book> searchResult,
-      final AsyncValue<List<Book>> searchState}) = _$SearchViewModelStateImpl;
+          {final List<BookResponse> searchResult,
+          final AsyncValue<List<BookResponse>> searchState}) =
+      _$SearchViewModelStateImpl;
 
   @override
-  List<Book> get searchResult;
+  List<BookResponse> get searchResult;
   @override
-  AsyncValue<List<Book>> get searchState;
+  AsyncValue<List<BookResponse>> get searchState;
   @override
   @JsonKey(ignore: true)
   _$$SearchViewModelStateImplCopyWith<_$SearchViewModelStateImpl>

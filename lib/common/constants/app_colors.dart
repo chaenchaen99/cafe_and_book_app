@@ -17,4 +17,10 @@ class AppColors {
   static const Color hintColor = Color.fromARGB(255, 154, 147, 141);
 
   static const Color error = Color.fromARGB(255, 228, 54, 31);
+
+  static const Color initial = Color.fromARGB(255, 154, 147, 141);
+  static const Color reading = Color(0xFFE07B39);
+  static const Color done = Colors.lightGreen;
+
+  static const Color tabBarText = Color.fromARGB(255, 96, 111, 75);
 }

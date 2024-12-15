@@ -6,7 +6,7 @@ import '../../../common/widgets/text_widgets.dart';
 import '../../../model/book_response.dart';
 
 class SearchResultItem extends StatelessWidget {
-  final Book book;
+  final BookResponse book;
   const SearchResultItem({
     super.key,
     required this.book,

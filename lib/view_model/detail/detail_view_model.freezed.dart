@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DetailViewModelState {
   bool get isAlreadySaved => throw _privateConstructorUsedError;
-  AsyncValue<List<Book>> get bookshelfState =>
+  AsyncValue<List<BookModel>> get bookshelfState =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +31,7 @@ abstract class $DetailViewModelStateCopyWith<$Res> {
           $Res Function(DetailViewModelState) then) =
       _$DetailViewModelStateCopyWithImpl<$Res, DetailViewModelState>;
   @useResult
-  $Res call({bool isAlreadySaved, AsyncValue<List<Book>> bookshelfState});
+  $Res call({bool isAlreadySaved, AsyncValue<List<BookModel>> bookshelfState});
 }
 
 /// @nodoc
@@ -59,7 +59,7 @@ class _$DetailViewModelStateCopyWithImpl<$Res,
       bookshelfState: null == bookshelfState
           ? _value.bookshelfState
           : bookshelfState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<Book>>,
+              as AsyncValue<List<BookModel>>,
     ) as $Val);
   }
 }
@@ -72,7 +72,7 @@ abstract class _$$DetailViewModelStateImplCopyWith<$Res>
       __$$DetailViewModelStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isAlreadySaved, AsyncValue<List<Book>> bookshelfState});
+  $Res call({bool isAlreadySaved, AsyncValue<List<BookModel>> bookshelfState});
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class __$$DetailViewModelStateImplCopyWithImpl<$Res>
       bookshelfState: null == bookshelfState
           ? _value.bookshelfState
           : bookshelfState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<Book>>,
+              as AsyncValue<List<BookModel>>,
     ));
   }
 }
@@ -116,7 +116,7 @@ class _$DetailViewModelStateImpl
   final bool isAlreadySaved;
   @override
   @JsonKey()
-  final AsyncValue<List<Book>> bookshelfState;
+  final AsyncValue<List<BookModel>> bookshelfState;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -158,13 +158,13 @@ class _$DetailViewModelStateImpl
 abstract class _DetailViewModelState implements DetailViewModelState {
   const factory _DetailViewModelState(
           {final bool isAlreadySaved,
-          final AsyncValue<List<Book>> bookshelfState}) =
+          final AsyncValue<List<BookModel>> bookshelfState}) =
       _$DetailViewModelStateImpl;
 
   @override
   bool get isAlreadySaved;
   @override
-  AsyncValue<List<Book>> get bookshelfState;
+  AsyncValue<List<BookModel>> get bookshelfState;
   @override
   @JsonKey(ignore: true)
   _$$DetailViewModelStateImplCopyWith<_$DetailViewModelStateImpl>

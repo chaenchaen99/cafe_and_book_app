@@ -11,8 +11,8 @@ part 'search_view_model.g.dart';
 @freezed
 class SearchViewModelState with _$SearchViewModelState {
   const factory SearchViewModelState({
-    @Default([]) List<Book> searchResult,
-    @Default(AsyncValue.data([])) AsyncValue<List<Book>> searchState,
+    @Default([]) List<BookResponse> searchResult,
+    @Default(AsyncValue.data([])) AsyncValue<List<BookResponse>> searchState,
   }) = _SearchViewModelState;
 }
 

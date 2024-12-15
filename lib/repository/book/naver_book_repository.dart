@@ -11,7 +11,7 @@ class NaverBookApiRepository {
 
   NaverBookApiRepository(this.naverBookApiService);
 
-  Future<List<Book>> getBestSellerList(String query) async {
+  Future<List<BookResponse>> getBestSellerList(String query) async {
     final result = await naverBookApiService.getBestSellerList(
       query,
       "date",
@@ -20,7 +20,7 @@ class NaverBookApiRepository {
     return result.items;
   }
 
-  Future<List<Book>> getBookRearchResult(String query) async {
+  Future<List<BookResponse>> getBookRearchResult(String query) async {
     final result = await naverBookApiService.getBookSearchResult(query, 100);
     return result.items;
   }

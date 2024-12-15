@@ -2,7 +2,7 @@ import 'package:cafe_and_book/common/utils/cache_manager.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../model/book_response.dart';
+import '../../model/book_model.dart';
 
 part 'bookshelf_view_model.freezed.dart';
 part 'bookshelf_view_model.g.dart';
@@ -10,7 +10,7 @@ part 'bookshelf_view_model.g.dart';
 @freezed
 class BookshelfViewModelState with _$BookshelfViewModelState {
   const factory BookshelfViewModelState({
-    @Default(AsyncValue.data([])) AsyncValue<List<Book>> mybooksState,
+    @Default(AsyncValue.data([])) AsyncValue<List<BookModel>> mybooksState,
   }) = _BookshelfViewModelState;
 }
 
