@@ -33,8 +33,8 @@ class NaverBookApiRepository {
   Future<List<BookCafeDto>> getBookCafeList(String query) async {
     final result = await naverBookApiService.getBookCafeList(
       query: query,
-      display: 10,
-      sort: 'random',
+      display: 5,
+      sort: 'comment',
     );
     return result.bookCafeDtos;
   }
@@ -44,7 +44,6 @@ class NaverBookApiRepository {
       query: query,
       display: 10,
       sort: 'sim',
-      filter: 'medium',
     );
     return result.thumbnailDto;
   }

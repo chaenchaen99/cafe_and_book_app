@@ -149,14 +149,12 @@ class _NaverBookApi implements NaverBookApi {
     required String query,
     required int display,
     required String sort,
-    required String filter,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'query': query,
       r'display': display,
       r'sort': sort,
-      r'filter': filter,
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;

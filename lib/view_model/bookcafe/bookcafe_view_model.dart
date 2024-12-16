@@ -29,7 +29,7 @@ class BookCafeViewModel extends _$BookCafeViewModel {
     final result = await AsyncValue.guard(() async {
       final bookCafeList = await ref
           .read(naverBookApiRepositoryProvider)
-          .getBookCafeList('서울북카페');
+          .getBookCafeList('북카페추천');
 
       final bookCafeModels = await Future.wait(
         bookCafeList.map((bookCafe) async {

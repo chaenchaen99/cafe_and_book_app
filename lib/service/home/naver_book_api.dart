@@ -37,6 +37,5 @@ abstract class NaverBookApi {
     @Query("query") required String query,
     @Query("display") required int display,
     @Query("sort") required String sort,
-    @Query("filter") required String filter,
   });
 }
