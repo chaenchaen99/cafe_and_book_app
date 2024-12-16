@@ -16,8 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SearchViewModelState {
-  List<BookResponse> get searchResult => throw _privateConstructorUsedError;
-  AsyncValue<List<BookResponse>> get searchState =>
+  List<BookModel> get searchResult => throw _privateConstructorUsedError;
+  AsyncValue<List<BookModel>> get searchState =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,8 +32,7 @@ abstract class $SearchViewModelStateCopyWith<$Res> {
       _$SearchViewModelStateCopyWithImpl<$Res, SearchViewModelState>;
   @useResult
   $Res call(
-      {List<BookResponse> searchResult,
-      AsyncValue<List<BookResponse>> searchState});
+      {List<BookModel> searchResult, AsyncValue<List<BookModel>> searchState});
 }
 
 /// @nodoc
@@ -57,11 +56,11 @@ class _$SearchViewModelStateCopyWithImpl<$Res,
       searchResult: null == searchResult
           ? _value.searchResult
           : searchResult // ignore: cast_nullable_to_non_nullable
-              as List<BookResponse>,
+              as List<BookModel>,
       searchState: null == searchState
           ? _value.searchState
           : searchState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<BookResponse>>,
+              as AsyncValue<List<BookModel>>,
     ) as $Val);
   }
 }
@@ -75,8 +74,7 @@ abstract class _$$SearchViewModelStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<BookResponse> searchResult,
-      AsyncValue<List<BookResponse>> searchState});
+      {List<BookModel> searchResult, AsyncValue<List<BookModel>> searchState});
 }
 
 /// @nodoc
@@ -97,11 +95,11 @@ class __$$SearchViewModelStateImplCopyWithImpl<$Res>
       searchResult: null == searchResult
           ? _value._searchResult
           : searchResult // ignore: cast_nullable_to_non_nullable
-              as List<BookResponse>,
+              as List<BookModel>,
       searchState: null == searchState
           ? _value.searchState
           : searchState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<BookResponse>>,
+              as AsyncValue<List<BookModel>>,
     ));
   }
 }
@@ -110,14 +108,14 @@ class __$$SearchViewModelStateImplCopyWithImpl<$Res>
 
 class _$SearchViewModelStateImpl implements _SearchViewModelState {
   const _$SearchViewModelStateImpl(
-      {final List<BookResponse> searchResult = const [],
+      {final List<BookModel> searchResult = const [],
       this.searchState = const AsyncValue.data([])})
       : _searchResult = searchResult;
 
-  final List<BookResponse> _searchResult;
+  final List<BookModel> _searchResult;
   @override
   @JsonKey()
-  List<BookResponse> get searchResult {
+  List<BookModel> get searchResult {
     if (_searchResult is EqualUnmodifiableListView) return _searchResult;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_searchResult);
@@ -125,7 +123,7 @@ class _$SearchViewModelStateImpl implements _SearchViewModelState {
 
   @override
   @JsonKey()
-  final AsyncValue<List<BookResponse>> searchState;
+  final AsyncValue<List<BookModel>> searchState;
 
   @override
   String toString() {
@@ -158,14 +156,14 @@ class _$SearchViewModelStateImpl implements _SearchViewModelState {
 
 abstract class _SearchViewModelState implements SearchViewModelState {
   const factory _SearchViewModelState(
-          {final List<BookResponse> searchResult,
-          final AsyncValue<List<BookResponse>> searchState}) =
+          {final List<BookModel> searchResult,
+          final AsyncValue<List<BookModel>> searchState}) =
       _$SearchViewModelStateImpl;
 
   @override
-  List<BookResponse> get searchResult;
+  List<BookModel> get searchResult;
   @override
-  AsyncValue<List<BookResponse>> get searchState;
+  AsyncValue<List<BookModel>> get searchState;
   @override
   @JsonKey(ignore: true)
   _$$SearchViewModelStateImplCopyWith<_$SearchViewModelStateImpl>

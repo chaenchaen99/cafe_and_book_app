@@ -1,4 +1,5 @@
-import 'package:cafe_and_book/model/book_response.dart';
+import 'package:cafe_and_book/common/mapper/display_mapper.dart';
+import 'package:cafe_and_book/model/book_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,8 +12,8 @@ part 'search_view_model.g.dart';
 @freezed
 class SearchViewModelState with _$SearchViewModelState {
   const factory SearchViewModelState({
-    @Default([]) List<BookResponse> searchResult,
-    @Default(AsyncValue.data([])) AsyncValue<List<BookResponse>> searchState,
+    @Default([]) List<BookModel> searchResult,
+    @Default(AsyncValue.data([])) AsyncValue<List<BookModel>> searchState,
   }) = _SearchViewModelState;
 }
 
@@ -34,7 +35,9 @@ class SearchViewModel extends _$SearchViewModel {
 
     result.when(data: (data) {
       state = state.copyWith(
-          searchResult: data, searchState: AsyncValue.data(data));
+          searchResult: data.map((book) => book.toModel()).toList(),
+          searchState:
+              AsyncValue.data(data.map((book) => book.toModel()).toList()));
     }, error: (error, stack) {
       state = state.copyWith(
         searchState: AsyncValue.error(error, stack),

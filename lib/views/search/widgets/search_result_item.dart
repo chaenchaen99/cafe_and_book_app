@@ -1,12 +1,13 @@
+import 'package:cafe_and_book/model/book_model.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common/widgets/text_widgets.dart';
-import '../../../model/book_response.dart';
+import '../../../dto/book_dto.dart';
 
 class SearchResultItem extends StatelessWidget {
-  final BookResponse book;
+  final BookModel book;
   const SearchResultItem({
     super.key,
     required this.book,

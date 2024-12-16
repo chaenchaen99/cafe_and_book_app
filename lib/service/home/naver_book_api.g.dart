@@ -24,11 +24,11 @@ class _NaverBookApi implements NaverBookApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<BookListResponse> getBestSellerList(
-    String query,
-    String sort,
-    int display,
-  ) async {
+  Future<BookListDTO> getBestSellerList({
+    required String query,
+    required String sort,
+    required int display,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'query': query,
@@ -37,7 +37,7 @@ class _NaverBookApi implements NaverBookApi {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BookListResponse>(Options(
+    final _options = _setStreamType<BookListDTO>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -54,9 +54,9 @@ class _NaverBookApi implements NaverBookApi {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BookListResponse _value;
+    late BookListDTO _value;
     try {
-      _value = BookListResponse.fromJson(_result.data!);
+      _value = BookListDTO.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -65,10 +65,10 @@ class _NaverBookApi implements NaverBookApi {
   }
 
   @override
-  Future<BookListResponse> getBookSearchResult(
-    String query,
-    int display,
-  ) async {
+  Future<BookListDTO> getBookSearchResult({
+    required String query,
+    required int display,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'd_titl': query,
@@ -76,7 +76,7 @@ class _NaverBookApi implements NaverBookApi {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BookListResponse>(Options(
+    final _options = _setStreamType<BookListDTO>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -93,9 +93,93 @@ class _NaverBookApi implements NaverBookApi {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BookListResponse _value;
+    late BookListDTO _value;
     try {
-      _value = BookListResponse.fromJson(_result.data!);
+      _value = BookListDTO.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<BookCafeListDto> getBookCafeList({
+    required String query,
+    required int display,
+    required String sort,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'query': query,
+      r'display': display,
+      r'sort': sort,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<BookCafeListDto>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/v1/search/local.json',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BookCafeListDto _value;
+    try {
+      _value = BookCafeListDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<BookCafeThumbnailListDto> getBookCafeThumbnailList({
+    required String query,
+    required int display,
+    required String sort,
+    required String filter,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'query': query,
+      r'display': display,
+      r'sort': sort,
+      r'filter': filter,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<BookCafeThumbnailListDto>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/v1/search/image',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BookCafeThumbnailListDto _value;
+    try {
+      _value = BookCafeThumbnailListDto.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

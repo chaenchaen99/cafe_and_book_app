@@ -1,12 +1,141 @@
+import 'package:cafe_and_book/common/constants/app_colors.dart';
+import 'package:cafe_and_book/view_model/bookcafe/bookcafe_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../common/widgets/text_widgets.dart';
 
-class BookcafeScreen extends StatelessWidget {
+class BookcafeScreen extends ConsumerStatefulWidget {
   const BookcafeScreen({super.key});
 
   @override
+  ConsumerState<BookcafeScreen> createState() => _BookcafeScreenState();
+}
+
+class _BookcafeScreenState extends ConsumerState<BookcafeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(bookCafeViewModelProvider.notifier)
+          .fetchAndCombineBookCafeData();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text("북카페"),
+    return Scaffold(
+      body: ref.watch(bookCafeViewModelProvider).bookCafeListState.when(
+            data: (bookCafeList) {
+              return SingleChildScrollView(
+                child: SizedBox(
+                  width: MediaQuery.sizeOf(context).width,
+                  height: MediaQuery.sizeOf(context).height,
+                  child: Stack(
+                    children: [
+                      // 배경 이미지
+                      Positioned(
+                        child: Image.asset("assets/images/bookcafe_bg.jpg",
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width,
+                            height: 270),
+                      ),
+
+                      const Positioned(
+                        top: 180,
+                        left: 16,
+                        child: Text(
+                          "때로는 분위기 좋은 카페에서 책을 읽어보세요.\n책 읽기 좋은 카페를 추천드릴게요 :)",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Positioned.fill(
+                        top: 250,
+                        child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: bookCafeList.length,
+                            itemBuilder: (context, index) {
+                              final bookCafe = bookCafeList[index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: SmallText(
+                                          text: bookCafe.bookCafeName,
+                                          weight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child:
+                                            SmallText(text: bookCafe.address),
+                                      ),
+                                      // 이미지 리스트는 다른 ListView로 처리
+                                      SizedBox(
+                                        height: 260, // 이미지 영역 크기 제한
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: bookCafe.thumbnails.length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8.0,
+                                                      horizontal: 2.0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                child: Image.network(
+                                                  bookCafe.thumbnails[index],
+                                                  fit: BoxFit.cover,
+                                                  width: 160,
+                                                  height: 220,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    // 이미지 로딩에 실패한 경우 아무 것도 표시하지 않음
+                                                    return const SizedBox
+                                                        .shrink(); // 빈 공간을 아예 없애기
+                                                  },
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+            error: (e, stack) {
+              return null;
+            },
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
     );
   }
 }

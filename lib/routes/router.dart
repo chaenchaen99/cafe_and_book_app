@@ -1,5 +1,5 @@
 import 'package:cafe_and_book/model/book_model.dart';
-import 'package:cafe_and_book/model/book_response.dart';
+import 'package:cafe_and_book/dto/book_dto.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:cafe_and_book/views/bookcafe/bookcafe_screen.dart';
 import 'package:cafe_and_book/views/bookreview/book_review_screen.dart';
@@ -47,7 +47,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           path: "/detail",
           name: RoutesName.DETAIL,
           pageBuilder: (context, state) {
-            final book = state.extra as BookResponse;
+            final book = state.extra as BookModel;
             return CustomTransitionPage(
               key: state.pageKey,
               child: DetailScreen(book: book),

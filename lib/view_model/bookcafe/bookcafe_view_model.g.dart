@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_view_model.dart';
+part of 'bookcafe_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeViewModelHash() => r'9a0c0a94dbc8c957fce61318ced5ec8c9543013d';
+String _$bookCafeViewModelHash() => r'3ebe2d4b9f61cddca4eddc7b9a8a1805bcb13808';
 
-/// See also [HomeViewModel].
-@ProviderFor(HomeViewModel)
-final homeViewModelProvider =
-    AutoDisposeNotifierProvider<HomeViewModel, HomeViewModelState>.internal(
-  HomeViewModel.new,
-  name: r'homeViewModelProvider',
+/// See also [BookCafeViewModel].
+@ProviderFor(BookCafeViewModel)
+final bookCafeViewModelProvider = AutoDisposeNotifierProvider<BookCafeViewModel,
+    BookCafeViewModelState>.internal(
+  BookCafeViewModel.new,
+  name: r'bookCafeViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$homeViewModelHash,
+      : _$bookCafeViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$HomeViewModel = AutoDisposeNotifier<HomeViewModelState>;
+typedef _$BookCafeViewModel = AutoDisposeNotifier<BookCafeViewModelState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

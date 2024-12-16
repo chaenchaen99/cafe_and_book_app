@@ -1,6 +1,6 @@
+import 'package:cafe_and_book/common/mapper/display_mapper.dart';
 import 'package:cafe_and_book/common/utils/cache_manager.dart';
 import 'package:cafe_and_book/model/book_model.dart';
-import 'package:cafe_and_book/model/book_response.dart';
 import 'package:cafe_and_book/repository/book/naver_book_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -22,10 +22,9 @@ enum Category {
 @freezed
 class HomeViewModelState with _$HomeViewModelState {
   const factory HomeViewModelState({
-    @Default({})
-    Map<Category, List<BookResponse>> bookList, //카테고리별 베스트셀러 데이터 리스트
+    @Default({}) Map<Category, List<BookModel>> bookList, //카테고리별 베스트셀러 데이터 리스트
     @Default(AsyncValue.loading())
-    AsyncValue<Map<Category, List<BookResponse>>> getbookListState, //데이터 처리 상태
+    AsyncValue<Map<Category, List<BookModel>>> getbookListState, //데이터 처리 상태
   }) = _HomeViewModelState;
 }
 
@@ -55,8 +54,8 @@ class HomeViewModel extends _$HomeViewModel {
       if (cachedData != null) {
         final bookList = cachedData.map((key, value) => MapEntry(
               Category.values.firstWhere((category) => category.type == key),
-              List<BookResponse>.from(
-                  value.map((books) => BookResponse.fromJson(books))),
+              List<BookModel>.from(
+                  value.map((books) => BookModel.fromJson(books))),
             ));
         state = state.copyWith(
           bookList: bookList,
@@ -97,14 +96,14 @@ class HomeViewModel extends _$HomeViewModel {
     }
 
     //2: 데이터 업데이트 후 1일이 지났으면 데이터 호출
-    final Map<Category, List<BookResponse>> categoryBooks = {};
+    final Map<Category, List<BookModel>> categoryBooks = {};
 
     final result = await AsyncValue.guard(() async {
       for (final category in Category.values) {
         final books = await ref
-            .watch(naverBookApiRepositoryProvider)
+            .read(naverBookApiRepositoryProvider)
             .getBestSellerList(category.type);
-        categoryBooks[category] = books;
+        categoryBooks[category] = books.map((book) => book.toModel()).toList();
       }
       return categoryBooks;
     });

@@ -1,16 +1,16 @@
 import 'package:cafe_and_book/common/constants/app_colors.dart';
 import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:cafe_and_book/common/widgets/text_widgets.dart';
+import 'package:cafe_and_book/model/book_model.dart';
 import 'package:cafe_and_book/view_model/detail/detail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common/widgets/pop.dart';
 import '../../common/widgets/snackbar.dart';
-import '../../model/book_response.dart';
 
 class DetailScreen extends ConsumerWidget {
-  final BookResponse book;
+  final BookModel book;
   const DetailScreen({super.key, required this.book});
 
   @override

@@ -1,25 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'book_response.dart';
+part of 'book_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BookListResponseImpl _$$BookListResponseImplFromJson(
-        Map<String, dynamic> json) =>
-    _$BookListResponseImpl(
+_$BookListDTOImpl _$$BookListDTOImplFromJson(Map<String, dynamic> json) =>
+    _$BookListDTOImpl(
       lastBuildDate: json['lastBuildDate'] as String,
       total: (json['total'] as num).toInt(),
       start: (json['start'] as num).toInt(),
       display: (json['display'] as num).toInt(),
       items: (json['items'] as List<dynamic>)
-          .map((e) => BookResponse.fromJson(e as Map<String, dynamic>))
+          .map((e) => BookDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$BookListResponseImplToJson(
-        _$BookListResponseImpl instance) =>
+Map<String, dynamic> _$$BookListDTOImplToJson(_$BookListDTOImpl instance) =>
     <String, dynamic>{
       'lastBuildDate': instance.lastBuildDate,
       'total': instance.total,
@@ -28,8 +26,8 @@ Map<String, dynamic> _$$BookListResponseImplToJson(
       'items': instance.items,
     };
 
-_$BookResponseImpl _$$BookResponseImplFromJson(Map<String, dynamic> json) =>
-    _$BookResponseImpl(
+_$BookDtoImpl _$$BookDtoImplFromJson(Map<String, dynamic> json) =>
+    _$BookDtoImpl(
       title: json['title'] as String,
       link: json['link'] as String,
       image: json['image'] as String,
@@ -41,7 +39,7 @@ _$BookResponseImpl _$$BookResponseImplFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String,
     );
 
-Map<String, dynamic> _$$BookResponseImplToJson(_$BookResponseImpl instance) =>
+Map<String, dynamic> _$$BookDtoImplToJson(_$BookDtoImpl instance) =>
     <String, dynamic>{
       'title': instance.title,
       'link': instance.link,

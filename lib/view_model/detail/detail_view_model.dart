@@ -1,6 +1,5 @@
 import 'package:cafe_and_book/common/utils/cache_manager.dart';
 import 'package:cafe_and_book/model/book_model.dart';
-import 'package:cafe_and_book/model/book_response.dart';
 import 'package:cafe_and_book/views/bookreview/widget/reading_state_badge.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -24,7 +23,7 @@ class DetailViewModel extends _$DetailViewModel {
     return const DetailViewModelState();
   }
 
-  saveBookToBookShelf(BookResponse book) async {
+  saveBookToBookShelf(BookModel book) async {
     final List<BookModel> bookShelf =
         await CacheManager.loadBookShelfFromCache() ?? [];
 

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'book_response.dart';
+part of 'book_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,42 +14,42 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-BookListResponse _$BookListResponseFromJson(Map<String, dynamic> json) {
-  return _BookListResponse.fromJson(json);
+BookListDTO _$BookListDTOFromJson(Map<String, dynamic> json) {
+  return _BookListDTO.fromJson(json);
 }
 
 /// @nodoc
-mixin _$BookListResponse {
+mixin _$BookListDTO {
   String get lastBuildDate => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
   int get start => throw _privateConstructorUsedError;
   int get display => throw _privateConstructorUsedError;
-  List<BookResponse> get items => throw _privateConstructorUsedError;
+  List<BookDto> get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BookListResponseCopyWith<BookListResponse> get copyWith =>
+  $BookListDTOCopyWith<BookListDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BookListResponseCopyWith<$Res> {
-  factory $BookListResponseCopyWith(
-          BookListResponse value, $Res Function(BookListResponse) then) =
-      _$BookListResponseCopyWithImpl<$Res, BookListResponse>;
+abstract class $BookListDTOCopyWith<$Res> {
+  factory $BookListDTOCopyWith(
+          BookListDTO value, $Res Function(BookListDTO) then) =
+      _$BookListDTOCopyWithImpl<$Res, BookListDTO>;
   @useResult
   $Res call(
       {String lastBuildDate,
       int total,
       int start,
       int display,
-      List<BookResponse> items});
+      List<BookDto> items});
 }
 
 /// @nodoc
-class _$BookListResponseCopyWithImpl<$Res, $Val extends BookListResponse>
-    implements $BookListResponseCopyWith<$Res> {
-  _$BookListResponseCopyWithImpl(this._value, this._then);
+class _$BookListDTOCopyWithImpl<$Res, $Val extends BookListDTO>
+    implements $BookListDTOCopyWith<$Res> {
+  _$BookListDTOCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -85,17 +85,17 @@ class _$BookListResponseCopyWithImpl<$Res, $Val extends BookListResponse>
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<BookResponse>,
+              as List<BookDto>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$BookListResponseImplCopyWith<$Res>
-    implements $BookListResponseCopyWith<$Res> {
-  factory _$$BookListResponseImplCopyWith(_$BookListResponseImpl value,
-          $Res Function(_$BookListResponseImpl) then) =
-      __$$BookListResponseImplCopyWithImpl<$Res>;
+abstract class _$$BookListDTOImplCopyWith<$Res>
+    implements $BookListDTOCopyWith<$Res> {
+  factory _$$BookListDTOImplCopyWith(
+          _$BookListDTOImpl value, $Res Function(_$BookListDTOImpl) then) =
+      __$$BookListDTOImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -103,15 +103,15 @@ abstract class _$$BookListResponseImplCopyWith<$Res>
       int total,
       int start,
       int display,
-      List<BookResponse> items});
+      List<BookDto> items});
 }
 
 /// @nodoc
-class __$$BookListResponseImplCopyWithImpl<$Res>
-    extends _$BookListResponseCopyWithImpl<$Res, _$BookListResponseImpl>
-    implements _$$BookListResponseImplCopyWith<$Res> {
-  __$$BookListResponseImplCopyWithImpl(_$BookListResponseImpl _value,
-      $Res Function(_$BookListResponseImpl) _then)
+class __$$BookListDTOImplCopyWithImpl<$Res>
+    extends _$BookListDTOCopyWithImpl<$Res, _$BookListDTOImpl>
+    implements _$$BookListDTOImplCopyWith<$Res> {
+  __$$BookListDTOImplCopyWithImpl(
+      _$BookListDTOImpl _value, $Res Function(_$BookListDTOImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$BookListResponseImplCopyWithImpl<$Res>
     Object? display = null,
     Object? items = null,
   }) {
-    return _then(_$BookListResponseImpl(
+    return _then(_$BookListDTOImpl(
       lastBuildDate: null == lastBuildDate
           ? _value.lastBuildDate
           : lastBuildDate // ignore: cast_nullable_to_non_nullable
@@ -143,24 +143,24 @@ class __$$BookListResponseImplCopyWithImpl<$Res>
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<BookResponse>,
+              as List<BookDto>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$BookListResponseImpl implements _BookListResponse {
-  const _$BookListResponseImpl(
+class _$BookListDTOImpl implements _BookListDTO {
+  const _$BookListDTOImpl(
       {required this.lastBuildDate,
       required this.total,
       required this.start,
       required this.display,
-      required final List<BookResponse> items})
+      required final List<BookDto> items})
       : _items = items;
 
-  factory _$BookListResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BookListResponseImplFromJson(json);
+  factory _$BookListDTOImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BookListDTOImplFromJson(json);
 
   @override
   final String lastBuildDate;
@@ -170,9 +170,9 @@ class _$BookListResponseImpl implements _BookListResponse {
   final int start;
   @override
   final int display;
-  final List<BookResponse> _items;
+  final List<BookDto> _items;
   @override
-  List<BookResponse> get items {
+  List<BookDto> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
@@ -180,14 +180,14 @@ class _$BookListResponseImpl implements _BookListResponse {
 
   @override
   String toString() {
-    return 'BookListResponse(lastBuildDate: $lastBuildDate, total: $total, start: $start, display: $display, items: $items)';
+    return 'BookListDTO(lastBuildDate: $lastBuildDate, total: $total, start: $start, display: $display, items: $items)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BookListResponseImpl &&
+            other is _$BookListDTOImpl &&
             (identical(other.lastBuildDate, lastBuildDate) ||
                 other.lastBuildDate == lastBuildDate) &&
             (identical(other.total, total) || other.total == total) &&
@@ -204,28 +204,27 @@ class _$BookListResponseImpl implements _BookListResponse {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BookListResponseImplCopyWith<_$BookListResponseImpl> get copyWith =>
-      __$$BookListResponseImplCopyWithImpl<_$BookListResponseImpl>(
-          this, _$identity);
+  _$$BookListDTOImplCopyWith<_$BookListDTOImpl> get copyWith =>
+      __$$BookListDTOImplCopyWithImpl<_$BookListDTOImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BookListResponseImplToJson(
+    return _$$BookListDTOImplToJson(
       this,
     );
   }
 }
 
-abstract class _BookListResponse implements BookListResponse {
-  const factory _BookListResponse(
+abstract class _BookListDTO implements BookListDTO {
+  const factory _BookListDTO(
       {required final String lastBuildDate,
       required final int total,
       required final int start,
       required final int display,
-      required final List<BookResponse> items}) = _$BookListResponseImpl;
+      required final List<BookDto> items}) = _$BookListDTOImpl;
 
-  factory _BookListResponse.fromJson(Map<String, dynamic> json) =
-      _$BookListResponseImpl.fromJson;
+  factory _BookListDTO.fromJson(Map<String, dynamic> json) =
+      _$BookListDTOImpl.fromJson;
 
   @override
   String get lastBuildDate;
@@ -236,19 +235,19 @@ abstract class _BookListResponse implements BookListResponse {
   @override
   int get display;
   @override
-  List<BookResponse> get items;
+  List<BookDto> get items;
   @override
   @JsonKey(ignore: true)
-  _$$BookListResponseImplCopyWith<_$BookListResponseImpl> get copyWith =>
+  _$$BookListDTOImplCopyWith<_$BookListDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-BookResponse _$BookResponseFromJson(Map<String, dynamic> json) {
-  return _BookResponse.fromJson(json);
+BookDto _$BookDtoFromJson(Map<String, dynamic> json) {
+  return _BookDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$BookResponse {
+mixin _$BookDto {
   String get title => throw _privateConstructorUsedError;
   String get link => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
@@ -261,15 +260,13 @@ mixin _$BookResponse {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BookResponseCopyWith<BookResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+  $BookDtoCopyWith<BookDto> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BookResponseCopyWith<$Res> {
-  factory $BookResponseCopyWith(
-          BookResponse value, $Res Function(BookResponse) then) =
-      _$BookResponseCopyWithImpl<$Res, BookResponse>;
+abstract class $BookDtoCopyWith<$Res> {
+  factory $BookDtoCopyWith(BookDto value, $Res Function(BookDto) then) =
+      _$BookDtoCopyWithImpl<$Res, BookDto>;
   @useResult
   $Res call(
       {String title,
@@ -284,9 +281,9 @@ abstract class $BookResponseCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BookResponseCopyWithImpl<$Res, $Val extends BookResponse>
-    implements $BookResponseCopyWith<$Res> {
-  _$BookResponseCopyWithImpl(this._value, this._then);
+class _$BookDtoCopyWithImpl<$Res, $Val extends BookDto>
+    implements $BookDtoCopyWith<$Res> {
+  _$BookDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -348,11 +345,10 @@ class _$BookResponseCopyWithImpl<$Res, $Val extends BookResponse>
 }
 
 /// @nodoc
-abstract class _$$BookResponseImplCopyWith<$Res>
-    implements $BookResponseCopyWith<$Res> {
-  factory _$$BookResponseImplCopyWith(
-          _$BookResponseImpl value, $Res Function(_$BookResponseImpl) then) =
-      __$$BookResponseImplCopyWithImpl<$Res>;
+abstract class _$$BookDtoImplCopyWith<$Res> implements $BookDtoCopyWith<$Res> {
+  factory _$$BookDtoImplCopyWith(
+          _$BookDtoImpl value, $Res Function(_$BookDtoImpl) then) =
+      __$$BookDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -368,11 +364,11 @@ abstract class _$$BookResponseImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$BookResponseImplCopyWithImpl<$Res>
-    extends _$BookResponseCopyWithImpl<$Res, _$BookResponseImpl>
-    implements _$$BookResponseImplCopyWith<$Res> {
-  __$$BookResponseImplCopyWithImpl(
-      _$BookResponseImpl _value, $Res Function(_$BookResponseImpl) _then)
+class __$$BookDtoImplCopyWithImpl<$Res>
+    extends _$BookDtoCopyWithImpl<$Res, _$BookDtoImpl>
+    implements _$$BookDtoImplCopyWith<$Res> {
+  __$$BookDtoImplCopyWithImpl(
+      _$BookDtoImpl _value, $Res Function(_$BookDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -388,7 +384,7 @@ class __$$BookResponseImplCopyWithImpl<$Res>
     Object? isbn = null,
     Object? description = null,
   }) {
-    return _then(_$BookResponseImpl(
+    return _then(_$BookDtoImpl(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -431,8 +427,8 @@ class __$$BookResponseImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BookResponseImpl implements _BookResponse {
-  const _$BookResponseImpl(
+class _$BookDtoImpl implements _BookDto {
+  const _$BookDtoImpl(
       {required this.title,
       required this.link,
       required this.image,
@@ -443,8 +439,8 @@ class _$BookResponseImpl implements _BookResponse {
       required this.isbn,
       required this.description});
 
-  factory _$BookResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BookResponseImplFromJson(json);
+  factory _$BookDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BookDtoImplFromJson(json);
 
   @override
   final String title;
@@ -467,14 +463,14 @@ class _$BookResponseImpl implements _BookResponse {
 
   @override
   String toString() {
-    return 'BookResponse(title: $title, link: $link, image: $image, author: $author, discount: $discount, publisher: $publisher, pubdate: $pubdate, isbn: $isbn, description: $description)';
+    return 'BookDto(title: $title, link: $link, image: $image, author: $author, discount: $discount, publisher: $publisher, pubdate: $pubdate, isbn: $isbn, description: $description)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BookResponseImpl &&
+            other is _$BookDtoImpl &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.link, link) || other.link == link) &&
             (identical(other.image, image) || other.image == image) &&
@@ -497,19 +493,19 @@ class _$BookResponseImpl implements _BookResponse {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BookResponseImplCopyWith<_$BookResponseImpl> get copyWith =>
-      __$$BookResponseImplCopyWithImpl<_$BookResponseImpl>(this, _$identity);
+  _$$BookDtoImplCopyWith<_$BookDtoImpl> get copyWith =>
+      __$$BookDtoImplCopyWithImpl<_$BookDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BookResponseImplToJson(
+    return _$$BookDtoImplToJson(
       this,
     );
   }
 }
 
-abstract class _BookResponse implements BookResponse {
-  const factory _BookResponse(
+abstract class _BookDto implements BookDto {
+  const factory _BookDto(
       {required final String title,
       required final String link,
       required final String image,
@@ -518,10 +514,9 @@ abstract class _BookResponse implements BookResponse {
       required final String publisher,
       required final String pubdate,
       required final String isbn,
-      required final String description}) = _$BookResponseImpl;
+      required final String description}) = _$BookDtoImpl;
 
-  factory _BookResponse.fromJson(Map<String, dynamic> json) =
-      _$BookResponseImpl.fromJson;
+  factory _BookDto.fromJson(Map<String, dynamic> json) = _$BookDtoImpl.fromJson;
 
   @override
   String get title;
@@ -543,6 +538,6 @@ abstract class _BookResponse implements BookResponse {
   String get description;
   @override
   @JsonKey(ignore: true)
-  _$$BookResponseImplCopyWith<_$BookResponseImpl> get copyWith =>
+  _$$BookDtoImplCopyWith<_$BookDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
