@@ -11,8 +11,15 @@ import '../../common/widgets/pop.dart';
 import '../../common/widgets/text_widgets.dart';
 
 class MemoModifyScreen extends ConsumerStatefulWidget {
-  final BookModel book;
-  const MemoModifyScreen({super.key, required this.book});
+  final String bookTitle;
+  final DateTime timeStamp;
+  final String prevMemo;
+  const MemoModifyScreen(
+    this.bookTitle,
+    this.timeStamp,
+    this.prevMemo, {
+    super.key,
+  });
 
   @override
   ConsumerState<MemoModifyScreen> createState() => _MemoModifyScreenState();
@@ -20,15 +27,23 @@ class MemoModifyScreen extends ConsumerStatefulWidget {
 
 class _MemoModifyScreenState extends ConsumerState<MemoModifyScreen> {
   late TextEditingController _textEditingController;
+  late bool isNewMemo;
 
   @override
   void initState() {
     super.initState();
-    _textEditingController = TextEditingController();
+    _textEditingController = TextEditingController(
+      text: widget.prevMemo,
+    );
 
     _textEditingController.addListener(() {
       setState(() {});
     });
+    if (widget.prevMemo.isEmpty) {
+      isNewMemo = true;
+    } else {
+      isNewMemo = false;
+    }
   }
 
   @override
@@ -72,10 +87,18 @@ class _MemoModifyScreenState extends ConsumerState<MemoModifyScreen> {
               GestureDetector(
                 onTap: () {
                   if (_textEditingController.text.isNotEmpty) {
-                    ref.read(bookReviewViewModelProvider.notifier).addMemo(
-                        widget.book.title, _textEditingController.text);
+                    if (isNewMemo) {
+                      ref.read(bookReviewViewModelProvider.notifier).addMemo(
+                          widget.bookTitle, _textEditingController.text);
+                    } else {
+                      ref.read(bookReviewViewModelProvider.notifier).modifyMemo(
+                          widget.bookTitle,
+                          widget.timeStamp,
+                          _textEditingController.text);
+                    }
 
-                    showCustomSnackBar(context, "메모가 저장되었습니다.");
+                    showCustomSnackBar(context, "메모가 저장되었습니다.",
+                        goToBookShelf: false);
                     handlePop(context);
                   }
                 },

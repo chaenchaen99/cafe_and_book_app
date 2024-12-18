@@ -3,6 +3,7 @@ import 'package:cafe_and_book/dto/book_dto.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:cafe_and_book/views/bookcafe/bookcafe_screen.dart';
 import 'package:cafe_and_book/views/bookreview/book_review_screen.dart';
+import 'package:cafe_and_book/views/bookreview/memo_args.dart';
 import 'package:cafe_and_book/views/bookreview/memo_modify_screen.dart';
 import 'package:cafe_and_book/views/detail/detail_screen.dart';
 import 'package:cafe_and_book/views/bookshelf/bookshelf_screen.dart';
@@ -103,10 +104,14 @@ final routerProvider = Provider<GoRouter>((ref) {
                               path: "/memo",
                               name: RoutesName.MEMO,
                               pageBuilder: (context, state) {
-                                final book = state.extra as BookModel;
+                                final memoInfo = state.extra as MemoArgs;
                                 return CustomTransitionPage(
                                   key: state.pageKey,
-                                  child: MemoModifyScreen(book: book),
+                                  child: MemoModifyScreen(
+                                    memoInfo.bookTitle,
+                                    memoInfo.timeStamp,
+                                    memoInfo.content,
+                                  ),
                                   transitionsBuilder: (context, animation,
                                       secondaryAnimation, child) {
                                     return FadeTransition(

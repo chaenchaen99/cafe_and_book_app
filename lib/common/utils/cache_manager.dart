@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:cafe_and_book/model/book_model.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheManager {
@@ -125,33 +126,44 @@ class CacheManager {
     }
   }
 
-  static Future<void> modifyMemoInBook(
-      String bookTitle, DateTime timestamp, String newMemo) async {
+  static Future<BookModel?> modifyMemoInBook(
+    String bookTitle,
+    DateTime timestamp,
+    String newContent,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     final bookShelf = await loadBookShelfFromCache() ?? [];
 
     final bookIndex = bookShelf.indexWhere((book) => book.title == bookTitle);
     if (bookIndex != -1) {
       final book = bookShelf[bookIndex];
-
-      final updatedMemos = book.memos.map((memo) {
-        if (memo.containsKey(timestamp)) {
-          return {timestamp: newMemo};
-        }
-        return memo;
+// 타임스탬프에 해당하는 메모를 삭제하고 새로운 메모 추가
+      final updatedMemos = book.memos.where((memo) {
+        return !memo.containsKey(timestamp); // 해당 타임스탬프와 일치하는 메모 삭제
       }).toList();
 
+      // 새로운 타임스탬프와 내용으로 메모 추가
+      final newTimeStamp = DateTime.now();
+      updatedMemos.add({newTimeStamp: newContent});
+
+      // 책 업데이트
       final updatedBook = book.copyWith(memos: updatedMemos);
 
       bookShelf[bookIndex] = updatedBook;
 
       final jsonData = jsonEncode(bookShelf.map((e) => e.toJson()).toList());
       await prefs.setString(bookShelfKey, jsonData);
+
+      return updatedBook;
+    } else {
+      return null;
     }
   }
 
-  static Future<void> deleteMemoFromBook(
-      String bookTitle, DateTime timestamp) async {
+  static Future<BookModel?> deleteMemoFromBook(
+    String bookTitle,
+    DateTime timestamp,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     final bookShelf = await loadBookShelfFromCache() ?? [];
 
@@ -168,6 +180,9 @@ class CacheManager {
       bookShelf[bookIndex] = updatedBook;
       final jsonData = jsonEncode(bookShelf.map((e) => e.toJson()).toList());
       await prefs.setString(bookShelfKey, jsonData);
+      return updatedBook;
+    } else {
+      return null;
     }
   }
 }

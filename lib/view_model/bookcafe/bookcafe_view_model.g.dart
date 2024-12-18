@@ -6,7 +6,7 @@ part of 'bookcafe_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bookCafeViewModelHash() => r'635069bb965cf4135bbd0600d48023c224aa8c81';
+String _$bookCafeViewModelHash() => r'7aad8977dc9dad052d3fc81d82620360a5feae6f';
 
 /// See also [BookCafeViewModel].
 @ProviderFor(BookCafeViewModel)

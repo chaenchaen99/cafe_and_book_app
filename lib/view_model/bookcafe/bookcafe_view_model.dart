@@ -1,9 +1,6 @@
-import 'package:cafe_and_book/common/mapper/display_mapper.dart';
 import 'package:cafe_and_book/dto/bookcafe_thumbnail_dto.dart';
-import 'package:cafe_and_book/model/book_model.dart';
 import 'package:cafe_and_book/model/bookcafe_model.dart';
 import 'package:cafe_and_book/repository/book/naver_book_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,7 +10,7 @@ part 'bookcafe_view_model.g.dart';
 @freezed
 class BookCafeViewModelState with _$BookCafeViewModelState {
   const factory BookCafeViewModelState({
-    @Default(AsyncData([])) AsyncValue<List<BookCafeModel>> bookCafeListState,
+    @Default(AsyncData([])) AsyncValue<List<BookCafeModel?>> bookCafeListState,
   }) = _BookCafeViewModelState;
 }
 
@@ -25,7 +22,6 @@ class BookCafeViewModel extends _$BookCafeViewModel {
   }
 
   fetchAndCombineBookCafeData() async {
-    debugPrint("호출 시작");
     final result = await AsyncValue.guard(() async {
       final bookCafeList = await ref
           .read(naverBookApiRepositoryProvider)
@@ -33,28 +29,35 @@ class BookCafeViewModel extends _$BookCafeViewModel {
 
       final bookCafeModels = await Future.wait(
         bookCafeList.map((bookCafe) async {
-          final List<ThumbnailDto> thumbnailData = await ref
-              .read(naverBookApiRepositoryProvider)
-              .getBookCafeThumbnailList(bookCafe.title);
+          try {
+            final List<ThumbnailDto> thumbnailData = await ref
+                .read(naverBookApiRepositoryProvider)
+                .getBookCafeThumbnailList(bookCafe.title);
 
-          return BookCafeModel(
-            bookCafeName: bookCafe.title,
-            address: bookCafe.address,
-            roadAddress: bookCafe.roadAddress,
-            mapx: bookCafe.mapx,
-            mapy: bookCafe.mapy,
-            thumbnails:
-                thumbnailData.map((thumbnail) => thumbnail.link).toList(),
-          );
+            return BookCafeModel(
+              bookCafeName: bookCafe.title,
+              address: bookCafe.address,
+              roadAddress: bookCafe.roadAddress,
+              mapx: bookCafe.mapx,
+              mapy: bookCafe.mapy,
+              thumbnails:
+                  thumbnailData.map((thumbnail) => thumbnail.link).toList(),
+            );
+          } catch (e) {
+            // 오류 발생 시 null 반환
+            return null;
+          }
         }).toList(),
       );
 
-      return bookCafeModels;
+// 오류가 있는 경우 null을 제외하고 필터링
+      final validResults =
+          bookCafeModels.where((model) => model != null).toList();
+      return validResults;
     });
 
     result.when(
       data: (data) {
-        debugPrint(data.toString());
         state = state.copyWith(bookCafeListState: AsyncValue.data(data));
       },
       error: (error, stack) {

@@ -1,11 +1,7 @@
 import 'package:cafe_and_book/common/constants/app_colors.dart';
-import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:cafe_and_book/view_model/bookcafe/bookcafe_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../common/widgets/circular_background.dart';
 import '../../common/widgets/text_widgets.dart';
 
 class BookcafeScreen extends ConsumerStatefulWidget {
@@ -83,7 +79,7 @@ class _BookcafeScreenState extends ConsumerState<BookcafeScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16.0),
                                       child: SmallText(
-                                        text: bookCafe.bookCafeName,
+                                        text: bookCafe!.bookCafeName,
                                         weight: FontWeight.bold,
                                       ),
                                     ),

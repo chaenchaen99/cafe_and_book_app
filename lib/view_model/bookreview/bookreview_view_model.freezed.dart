@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BookReviewState {
+  bool get isMemoModifying => throw _privateConstructorUsedError;
   AsyncValue<BookModel> get bookReviewsState =>
       throw _privateConstructorUsedError;
 
@@ -30,7 +31,7 @@ abstract class $BookReviewStateCopyWith<$Res> {
           BookReviewState value, $Res Function(BookReviewState) then) =
       _$BookReviewStateCopyWithImpl<$Res, BookReviewState>;
   @useResult
-  $Res call({AsyncValue<BookModel> bookReviewsState});
+  $Res call({bool isMemoModifying, AsyncValue<BookModel> bookReviewsState});
 }
 
 /// @nodoc
@@ -46,9 +47,14 @@ class _$BookReviewStateCopyWithImpl<$Res, $Val extends BookReviewState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isMemoModifying = null,
     Object? bookReviewsState = null,
   }) {
     return _then(_value.copyWith(
+      isMemoModifying: null == isMemoModifying
+          ? _value.isMemoModifying
+          : isMemoModifying // ignore: cast_nullable_to_non_nullable
+              as bool,
       bookReviewsState: null == bookReviewsState
           ? _value.bookReviewsState
           : bookReviewsState // ignore: cast_nullable_to_non_nullable
@@ -65,7 +71,7 @@ abstract class _$$BookReviewStateImplCopyWith<$Res>
       __$$BookReviewStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AsyncValue<BookModel> bookReviewsState});
+  $Res call({bool isMemoModifying, AsyncValue<BookModel> bookReviewsState});
 }
 
 /// @nodoc
@@ -79,9 +85,14 @@ class __$$BookReviewStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isMemoModifying = null,
     Object? bookReviewsState = null,
   }) {
     return _then(_$BookReviewStateImpl(
+      isMemoModifying: null == isMemoModifying
+          ? _value.isMemoModifying
+          : isMemoModifying // ignore: cast_nullable_to_non_nullable
+              as bool,
       bookReviewsState: null == bookReviewsState
           ? _value.bookReviewsState
           : bookReviewsState // ignore: cast_nullable_to_non_nullable
@@ -94,15 +105,19 @@ class __$$BookReviewStateImplCopyWithImpl<$Res>
 
 class _$BookReviewStateImpl implements _BookReviewState {
   const _$BookReviewStateImpl(
-      {this.bookReviewsState = const AsyncValue.loading()});
+      {this.isMemoModifying = false,
+      this.bookReviewsState = const AsyncValue.loading()});
 
+  @override
+  @JsonKey()
+  final bool isMemoModifying;
   @override
   @JsonKey()
   final AsyncValue<BookModel> bookReviewsState;
 
   @override
   String toString() {
-    return 'BookReviewState(bookReviewsState: $bookReviewsState)';
+    return 'BookReviewState(isMemoModifying: $isMemoModifying, bookReviewsState: $bookReviewsState)';
   }
 
   @override
@@ -110,12 +125,15 @@ class _$BookReviewStateImpl implements _BookReviewState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BookReviewStateImpl &&
+            (identical(other.isMemoModifying, isMemoModifying) ||
+                other.isMemoModifying == isMemoModifying) &&
             (identical(other.bookReviewsState, bookReviewsState) ||
                 other.bookReviewsState == bookReviewsState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, bookReviewsState);
+  int get hashCode =>
+      Object.hash(runtimeType, isMemoModifying, bookReviewsState);
 
   @JsonKey(ignore: true)
   @override
@@ -127,8 +145,11 @@ class _$BookReviewStateImpl implements _BookReviewState {
 
 abstract class _BookReviewState implements BookReviewState {
   const factory _BookReviewState(
-      {final AsyncValue<BookModel> bookReviewsState}) = _$BookReviewStateImpl;
+      {final bool isMemoModifying,
+      final AsyncValue<BookModel> bookReviewsState}) = _$BookReviewStateImpl;
 
+  @override
+  bool get isMemoModifying;
   @override
   AsyncValue<BookModel> get bookReviewsState;
   @override

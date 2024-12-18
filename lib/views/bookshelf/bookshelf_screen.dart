@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../common/utils/dropdown_button.dart';
 import '../../common/widgets/circular_background.dart';
 import '../../common/widgets/line.dart';
-import '../../common/widgets/text_widgets.dart';
 
 class BookshelfScreen extends ConsumerStatefulWidget {
   const BookshelfScreen({super.key});

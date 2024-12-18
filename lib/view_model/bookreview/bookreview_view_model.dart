@@ -12,6 +12,7 @@ part 'bookreview_view_model.freezed.dart';
 @freezed
 class BookReviewState with _$BookReviewState {
   const factory BookReviewState({
+    @Default(false) bool isMemoModifying,
     @Default(AsyncValue.loading()) AsyncValue<BookModel> bookReviewsState,
   }) = _BookReviewState;
 }
@@ -33,6 +34,10 @@ class BookReviewViewModel extends _$BookReviewViewModel {
     } catch (e, stack) {
       state = state.copyWith(bookReviewsState: AsyncError(e, stack));
     }
+  }
+
+  toggleModifyButton() {
+    state = state.copyWith(isMemoModifying: !state.isMemoModifying);
   }
 
   getSortedList(String sortedOption) {
@@ -108,6 +113,43 @@ class BookReviewViewModel extends _$BookReviewViewModel {
       );
     } catch (e, stack) {
       state = state.copyWith(bookReviewsState: AsyncError(e, stack));
+    }
+  }
+
+  deleteMemo(String bookTitle, DateTime timeStamp) async {
+    try {
+      final result = await CacheManager.deleteMemoFromBook(
+        bookTitle,
+        timeStamp,
+      );
+      state = state.copyWith(
+        bookReviewsState: AsyncValue.data(result!.copyWith(
+          memos: sortedByLatest(List.from(result.memos)),
+        )),
+      );
+    } catch (e, _) {
+      state = state.copyWith(
+        bookReviewsState: AsyncValue.error(e, _),
+      );
+    }
+  }
+
+  modifyMemo(String bookTitle, DateTime timeStamp, String newMemo) async {
+    try {
+      final result = await CacheManager.modifyMemoInBook(
+        bookTitle,
+        timeStamp,
+        newMemo,
+      );
+      state = state.copyWith(
+        bookReviewsState: AsyncValue.data(result!.copyWith(
+          memos: sortedByLatest(List.from(result.memos)),
+        )),
+      );
+    } catch (e, _) {
+      state = state.copyWith(
+        bookReviewsState: AsyncValue.error(e, _),
+      );
     }
   }
 }

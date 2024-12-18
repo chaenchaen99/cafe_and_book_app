@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BookCafeViewModelState {
-  AsyncValue<List<BookCafeModel>> get bookCafeListState =>
+  AsyncValue<List<BookCafeModel?>> get bookCafeListState =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +30,7 @@ abstract class $BookCafeViewModelStateCopyWith<$Res> {
           $Res Function(BookCafeViewModelState) then) =
       _$BookCafeViewModelStateCopyWithImpl<$Res, BookCafeViewModelState>;
   @useResult
-  $Res call({AsyncValue<List<BookCafeModel>> bookCafeListState});
+  $Res call({AsyncValue<List<BookCafeModel?>> bookCafeListState});
 }
 
 /// @nodoc
@@ -53,7 +53,7 @@ class _$BookCafeViewModelStateCopyWithImpl<$Res,
       bookCafeListState: null == bookCafeListState
           ? _value.bookCafeListState
           : bookCafeListState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<BookCafeModel>>,
+              as AsyncValue<List<BookCafeModel?>>,
     ) as $Val);
   }
 }
@@ -67,7 +67,7 @@ abstract class _$$BookCafeViewModelStateImplCopyWith<$Res>
       __$$BookCafeViewModelStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AsyncValue<List<BookCafeModel>> bookCafeListState});
+  $Res call({AsyncValue<List<BookCafeModel?>> bookCafeListState});
 }
 
 /// @nodoc
@@ -89,7 +89,7 @@ class __$$BookCafeViewModelStateImplCopyWithImpl<$Res>
       bookCafeListState: null == bookCafeListState
           ? _value.bookCafeListState
           : bookCafeListState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<List<BookCafeModel>>,
+              as AsyncValue<List<BookCafeModel?>>,
     ));
   }
 }
@@ -102,7 +102,7 @@ class _$BookCafeViewModelStateImpl implements _BookCafeViewModelState {
 
   @override
   @JsonKey()
-  final AsyncValue<List<BookCafeModel>> bookCafeListState;
+  final AsyncValue<List<BookCafeModel?>> bookCafeListState;
 
   @override
   String toString() {
@@ -131,11 +131,11 @@ class _$BookCafeViewModelStateImpl implements _BookCafeViewModelState {
 
 abstract class _BookCafeViewModelState implements BookCafeViewModelState {
   const factory _BookCafeViewModelState(
-          {final AsyncValue<List<BookCafeModel>> bookCafeListState}) =
+          {final AsyncValue<List<BookCafeModel?>> bookCafeListState}) =
       _$BookCafeViewModelStateImpl;
 
   @override
-  AsyncValue<List<BookCafeModel>> get bookCafeListState;
+  AsyncValue<List<BookCafeModel?>> get bookCafeListState;
   @override
   @JsonKey(ignore: true)
   _$$BookCafeViewModelStateImplCopyWith<_$BookCafeViewModelStateImpl>

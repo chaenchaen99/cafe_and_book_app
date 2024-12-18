@@ -3,6 +3,7 @@ import 'package:cafe_and_book/model/book_model.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:cafe_and_book/view_model/bookreview/bookreview_view_model.dart';
 import 'package:cafe_and_book/view_model/bookshelf/bookshelf_view_model.dart';
+import 'package:cafe_and_book/views/bookreview/memo_args.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,7 @@ import '../../common/utils/custom_modal.dart';
 import '../../common/widgets/height_and_width.dart';
 import '../../common/widgets/line.dart';
 import '../../common/widgets/pop.dart';
+import '../../common/widgets/snackbar.dart';
 import '../../common/widgets/text_widgets.dart';
 import 'widget/reading_state_badge.dart';
 import 'widget/memo_item.dart';
@@ -76,6 +78,9 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
   @override
   Widget build(BuildContext context) {
     final bookMemos = ref.watch(bookReviewViewModelProvider).bookReviewsState;
+    final isMemoModifying =
+        ref.watch(bookReviewViewModelProvider).isMemoModifying;
+    final bookReviewViewModel = ref.read(bookReviewViewModelProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -102,6 +107,7 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
                     ref
                         .read(bookshelfViewModelProvider.notifier)
                         .deleteMyBookFromBookShelf(widget.book.title);
+                    handlePop(context);
                     handlePop(context);
                   }, iconPath: "assets/icons/alert.png");
                 },
@@ -189,7 +195,8 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
                             GestureDetector(
                               onTap: () {
                                 context.pushNamed(RoutesName.MEMO,
-                                    extra: widget.book);
+                                    extra: MemoArgs(
+                                        widget.book.title, DateTime.now(), ""));
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
@@ -301,7 +308,17 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
                               final memo = data.memos[index];
                               final entry = memo.entries.first;
                               return MemoItem(
-                                  date: entry.key, content: entry.value);
+                                date: entry.key,
+                                content: entry.value,
+                                onTapMemo: () {
+                                  context.pushNamed(RoutesName.MEMO,
+                                      extra: MemoArgs(
+                                        widget.book.title,
+                                        entry.key,
+                                        entry.value,
+                                      ));
+                                },
+                              );
                             },
                             separatorBuilder: (context, index) => const Line(),
                           )
