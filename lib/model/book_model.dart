@@ -18,6 +18,7 @@ class BookModel with _$BookModel {
     required String description,
     @Default([]) List<Map<DateTime, String>> memos,
     @Default(ReadingState.initial) ReadingState readingState,
+    required DateTime? addDateTime,
   }) = _BookModel;
 
   factory BookModel.fromJson(Map<String, dynamic> json) =>

@@ -1,3 +1,4 @@
+import 'package:cafe_and_book/common/constants/app_enums.dart';
 import 'package:cafe_and_book/view_model/bookshelf/bookshelf_view_model.dart';
 import 'package:cafe_and_book/views/bookshelf/widgets/bookshelf_item.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class BookshelfScreen extends ConsumerStatefulWidget {
 class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
   final ScrollController _scrollController = ScrollController();
   int _itemLimit = 40;
-  String sortOption = '최신순';
+  SortOptions sortOption = SortOptions.latest;
 
   @override
   void initState() {
@@ -31,10 +32,11 @@ class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
     ref.read(bookshelfViewModelProvider.notifier).fetchMyBooksFromLocalDB();
   }
 
-  void _handleSortChange(String newValue) {
+  void _handleSortChange(SortOptions newValue) {
     setState(() {
       sortOption = newValue;
     });
+    ref.read(bookshelfViewModelProvider.notifier).getSortedList(newValue);
   }
 
   @override
@@ -54,20 +56,17 @@ class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (ModalRoute.of(context)?.isCurrent == true) {
-      _initializeBookshelf(); // 화면이 다시 보일 때 데이터 새로고침
-    }
-    final mybooksState = ref.watch(bookshelfViewModelProvider).mybooksState;
-
     return Scaffold(
       appBar: AppBar(
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8, top: 12),
             child: CustomDropdownButton(
-              value: sortOption,
-              options: const ['최신순', '오래된 순'],
-              onChanged: _handleSortChange,
+              value: sortOption.option,
+              options:
+                  SortOptions.values.map((option) => option.option).toList(),
+              onChanged: (newValue) => _handleSortChange(
+                  SortOptions.values.firstWhere((e) => e.option == newValue)),
             ),
           ),
         ],
@@ -75,24 +74,25 @@ class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
       body: Stack(
         children: [
           const CircularBackground(),
-          mybooksState.when(
-            data: (books) => ListView.separated(
-              controller: _scrollController,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              itemCount: _itemLimit < books.length ? _itemLimit : books.length,
-              itemBuilder: (context, index) {
-                final book = books[index];
-                return BookshelfItem(book: book);
-              },
-              separatorBuilder: (context, index) => const Line(),
-            ),
-            error: (error, stack) => Center(
-              child: Text("에러가 발생했습니다: $error"),
-            ),
-            loading: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
+          ref.watch(bookshelfViewModelProvider).mybooksState.when(
+                data: (books) => ListView.separated(
+                  controller: _scrollController,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  itemCount:
+                      _itemLimit < books.length ? _itemLimit : books.length,
+                  itemBuilder: (context, index) {
+                    final book = books[index];
+                    return BookshelfItem(book: book);
+                  },
+                  separatorBuilder: (context, index) => const Line(),
+                ),
+                error: (error, stack) => Center(
+                  child: Text("에러가 발생했습니다: $error"),
+                ),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
         ],
       ),
     );

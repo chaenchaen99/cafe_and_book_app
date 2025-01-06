@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../view_model/bookshelf/bookshelf_view_model.dart';
+
 class MainScreen extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
   const MainScreen(this.navigationShell, {super.key});
@@ -13,6 +15,11 @@ class MainScreen extends ConsumerWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: navigationShell.currentIndex,
         onTap: (index) {
+          if (index == 1) {
+            ref
+                .read(bookshelfViewModelProvider.notifier)
+                .fetchMyBooksFromLocalDB();
+          }
           navigationShell.goBranch(
             index,
             initialLocation: index == navigationShell.currentIndex,

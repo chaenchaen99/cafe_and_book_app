@@ -46,6 +46,7 @@ class DetailViewModel extends _$DetailViewModel {
         isbn: book.isbn,
         description: book.description,
         readingState: ReadingState.initial,
+        addDateTime: DateTime.now(),
       ));
     }
   }

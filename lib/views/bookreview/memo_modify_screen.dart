@@ -97,7 +97,7 @@ class _MemoModifyScreenState extends ConsumerState<MemoModifyScreen> {
                           _textEditingController.text);
                     }
 
-                    showCustomSnackBar(context, "메모가 저장되었습니다.",
+                    showCustomSnackBar(context, ref, "메모가 저장되었습니다.",
                         goToBookShelf: false);
                     handlePop(context);
                   }
