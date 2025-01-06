@@ -19,7 +19,6 @@ class BookshelfScreen extends ConsumerStatefulWidget {
 class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
   final ScrollController _scrollController = ScrollController();
   int _itemLimit = 40;
-  SortOptions sortOption = SortOptions.latest;
 
   @override
   void initState() {
@@ -33,10 +32,7 @@ class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
   }
 
   void _handleSortChange(SortOptions newValue) {
-    setState(() {
-      sortOption = newValue;
-    });
-    ref.read(bookshelfViewModelProvider.notifier).getSortedList(newValue);
+    ref.read(bookshelfViewModelProvider.notifier).updateSortedList(newValue);
   }
 
   @override
@@ -56,13 +52,14 @@ class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bookshelfState = ref.watch(bookshelfViewModelProvider);
     return Scaffold(
       appBar: AppBar(
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8, top: 12),
             child: CustomDropdownButton(
-              value: sortOption.option,
+              value: bookshelfState.sortOption.option,
               options:
                   SortOptions.values.map((option) => option.option).toList(),
               onChanged: (newValue) => _handleSortChange(

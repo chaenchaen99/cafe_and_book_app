@@ -12,6 +12,7 @@ part 'bookshelf_view_model.g.dart';
 class BookshelfViewModelState with _$BookshelfViewModelState {
   const factory BookshelfViewModelState({
     @Default(AsyncValue.data([])) AsyncValue<List<BookModel>> mybooksState,
+    @Default(SortOptions.latest) sortOption,
   }) = _BookshelfViewModelState;
 }
 
@@ -28,9 +29,15 @@ class BookshelfViewModel extends _$BookshelfViewModel {
     });
     result.when(
       data: (data) {
-        state = state.copyWith(
-          mybooksState: AsyncValue.data(sortedByLatest(data!) ?? []),
-        );
+        if (state.sortOption == SortOptions.latest) {
+          state = state.copyWith(
+            mybooksState: AsyncValue.data(sortedByLatest(data!) ?? []),
+          );
+        } else {
+          state = state.copyWith(
+            mybooksState: AsyncValue.data(sortedByOldest(data!) ?? []),
+          );
+        }
       },
       error: (error, stack) {
         state = state.copyWith(
@@ -53,7 +60,7 @@ class BookshelfViewModel extends _$BookshelfViewModel {
     }
   }
 
-  getSortedList(SortOptions sortedOption) {
+  updateSortedList(SortOptions sortedOption) {
     final currentBooks = state.mybooksState.value ?? [];
     List<BookModel> sortedBooks;
 
@@ -64,6 +71,7 @@ class BookshelfViewModel extends _$BookshelfViewModel {
     }
     state = state.copyWith(
       mybooksState: AsyncValue.data(sortedBooks), // 정렬된 데이터로 상태 갱신
+      sortOption: sortedOption,
     );
   }
 

@@ -7,7 +7,7 @@ part of 'bookshelf_view_model.dart';
 // **************************************************************************
 
 String _$bookshelfViewModelHash() =>
-    r'5034143def182815f64c195d4217ce7ea2a59dce';
+    r'09f45adb60f06d93bc312c1a975431e04820bf4b';
 
 /// See also [BookshelfViewModel].
 @ProviderFor(BookshelfViewModel)
