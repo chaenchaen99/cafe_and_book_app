@@ -78,10 +78,6 @@ class _BookReviewScreenState extends ConsumerState<BookReviewScreen>
   @override
   Widget build(BuildContext context) {
     final bookMemos = ref.watch(bookReviewViewModelProvider).bookReviewsState;
-    final isMemoModifying =
-        ref.watch(bookReviewViewModelProvider).isMemoModifying;
-    final bookReviewViewModel = ref.read(bookReviewViewModelProvider.notifier);
-
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(

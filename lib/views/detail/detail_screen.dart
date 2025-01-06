@@ -34,9 +34,9 @@ class DetailScreen extends ConsumerWidget {
                         .read(detailViewModelProvider.notifier)
                         .saveBookToBookShelf(book);
                     if (ref.watch(detailViewModelProvider).isAlreadySaved) {
-                      showCustomSnackBar(context, "이미 저장되어있는 책입니다.");
+                      showCustomSnackBar(context, ref, "이미 저장되어있는 책입니다.");
                     } else {
-                      showCustomSnackBar(context, "책이 서재에 저장되었습니다.");
+                      showCustomSnackBar(context, ref, "책이 서재에 저장되었습니다.");
                     }
                   },
                   child: const Padding(

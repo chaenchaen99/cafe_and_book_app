@@ -3,9 +3,12 @@ import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:cafe_and_book/common/widgets/text_widgets.dart';
 import 'package:cafe_and_book/routes/routes_name.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-void showCustomSnackBar(BuildContext context, String message,
+import '../../view_model/bookshelf/bookshelf_view_model.dart';
+
+void showCustomSnackBar(BuildContext context, WidgetRef ref, String message,
     {bool goToBookShelf = true}) {
   final snackBar = SnackBar(
     margin: const EdgeInsets.only(right: 12, left: 12, bottom: 24),
@@ -42,6 +45,11 @@ void showCustomSnackBar(BuildContext context, String message,
             onPressed: () => {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     context.goNamed(RoutesName.BOOKSHELF);
+
+                    // 서재 데이터 초기화
+                    ref
+                        .read(bookshelfViewModelProvider.notifier)
+                        .fetchMyBooksFromLocalDB();
                   })
                 })
         : null,

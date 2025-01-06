@@ -26,6 +26,9 @@ _$BookModelImpl _$$BookModelImplFromJson(Map<String, dynamic> json) =>
       readingState:
           $enumDecodeNullable(_$ReadingStateEnumMap, json['readingState']) ??
               ReadingState.initial,
+      addDateTime: json['addDateTime'] == null
+          ? null
+          : DateTime.parse(json['addDateTime'] as String),
     );
 
 Map<String, dynamic> _$$BookModelImplToJson(_$BookModelImpl instance) =>
@@ -43,6 +46,7 @@ Map<String, dynamic> _$$BookModelImplToJson(_$BookModelImpl instance) =>
           .map((e) => e.map((k, e) => MapEntry(k.toIso8601String(), e)))
           .toList(),
       'readingState': _$ReadingStateEnumMap[instance.readingState]!,
+      'addDateTime': instance.addDateTime?.toIso8601String(),
     };
 
 const _$ReadingStateEnumMap = {

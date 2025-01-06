@@ -7,15 +7,17 @@ import 'package:cafe_and_book/model/bookcafe_model.dart';
 extension BookExtension on BookDto {
   BookModel toModel() {
     return BookModel(
-        title: title,
-        link: link,
-        image: image,
-        author: author,
-        discount: discount,
-        publisher: publisher,
-        pubdate: pubdate,
-        isbn: isbn,
-        description: description);
+      title: title,
+      link: link,
+      image: image,
+      author: author,
+      discount: discount,
+      publisher: publisher,
+      pubdate: pubdate,
+      isbn: isbn,
+      description: description,
+      addDateTime: null,
+    );
   }
 }
 

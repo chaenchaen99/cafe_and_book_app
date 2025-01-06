@@ -1,3 +1,4 @@
+import 'package:cafe_and_book/common/constants/app_enums.dart';
 import 'package:cafe_and_book/common/utils/cache_manager.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,6 +12,7 @@ part 'bookshelf_view_model.g.dart';
 class BookshelfViewModelState with _$BookshelfViewModelState {
   const factory BookshelfViewModelState({
     @Default(AsyncValue.data([])) AsyncValue<List<BookModel>> mybooksState,
+    @Default(SortOptions.latest) sortOption,
   }) = _BookshelfViewModelState;
 }
 
@@ -27,9 +29,15 @@ class BookshelfViewModel extends _$BookshelfViewModel {
     });
     result.when(
       data: (data) {
-        state = state.copyWith(
-          mybooksState: AsyncValue.data(data ?? []),
-        );
+        if (state.sortOption == SortOptions.latest) {
+          state = state.copyWith(
+            mybooksState: AsyncValue.data(sortedByLatest(data!) ?? []),
+          );
+        } else {
+          state = state.copyWith(
+            mybooksState: AsyncValue.data(sortedByOldest(data!) ?? []),
+          );
+        }
       },
       error: (error, stack) {
         state = state.copyWith(
@@ -50,5 +58,40 @@ class BookshelfViewModel extends _$BookshelfViewModel {
         mybooksState: AsyncValue.error(e, _),
       );
     }
+  }
+
+  updateSortedList(SortOptions sortedOption) {
+    final currentBooks = state.mybooksState.value ?? [];
+    List<BookModel> sortedBooks;
+
+    if (sortedOption == SortOptions.latest) {
+      sortedBooks = sortedByLatest(List.from(currentBooks))!;
+    } else {
+      sortedBooks = sortedByOldest(List.from(currentBooks))!;
+    }
+    state = state.copyWith(
+      mybooksState: AsyncValue.data(sortedBooks), // 정렬된 데이터로 상태 갱신
+      sortOption: sortedOption,
+    );
+  }
+
+  //최신 순 정렬
+  List<BookModel>? sortedByLatest(List<BookModel> books) {
+    books.sort((a, b) {
+      final aDate = a.addDateTime ?? DateTime(0);
+      final bDate = b.addDateTime ?? DateTime(0);
+      return bDate.compareTo(aDate); // 최신순으로 정렬
+    });
+    return books;
+  }
+
+// 오래된 순
+  List<BookModel>? sortedByOldest(List<BookModel> books) {
+    books.sort((a, b) {
+      final aDate = a.addDateTime ?? DateTime(0);
+      final bDate = b.addDateTime ?? DateTime(0);
+      return aDate.compareTo(bDate); // 오래된 순으로 정렬
+    });
+    return books;
   }
 }

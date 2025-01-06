@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$BookshelfViewModelState {
   AsyncValue<List<BookModel>> get mybooksState =>
       throw _privateConstructorUsedError;
+  dynamic get sortOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BookshelfViewModelStateCopyWith<BookshelfViewModelState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $BookshelfViewModelStateCopyWith<$Res> {
           $Res Function(BookshelfViewModelState) then) =
       _$BookshelfViewModelStateCopyWithImpl<$Res, BookshelfViewModelState>;
   @useResult
-  $Res call({AsyncValue<List<BookModel>> mybooksState});
+  $Res call({AsyncValue<List<BookModel>> mybooksState, dynamic sortOption});
 }
 
 /// @nodoc
@@ -48,12 +49,17 @@ class _$BookshelfViewModelStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? mybooksState = null,
+    Object? sortOption = freezed,
   }) {
     return _then(_value.copyWith(
       mybooksState: null == mybooksState
           ? _value.mybooksState
           : mybooksState // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<BookModel>>,
+      sortOption: freezed == sortOption
+          ? _value.sortOption
+          : sortOption // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -67,7 +73,7 @@ abstract class _$$BookshelfViewModelStateImplCopyWith<$Res>
       __$$BookshelfViewModelStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AsyncValue<List<BookModel>> mybooksState});
+  $Res call({AsyncValue<List<BookModel>> mybooksState, dynamic sortOption});
 }
 
 /// @nodoc
@@ -84,12 +90,14 @@ class __$$BookshelfViewModelStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? mybooksState = null,
+    Object? sortOption = freezed,
   }) {
     return _then(_$BookshelfViewModelStateImpl(
       mybooksState: null == mybooksState
           ? _value.mybooksState
           : mybooksState // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<BookModel>>,
+      sortOption: freezed == sortOption ? _value.sortOption! : sortOption,
     ));
   }
 }
@@ -98,15 +106,19 @@ class __$$BookshelfViewModelStateImplCopyWithImpl<$Res>
 
 class _$BookshelfViewModelStateImpl implements _BookshelfViewModelState {
   const _$BookshelfViewModelStateImpl(
-      {this.mybooksState = const AsyncValue.data([])});
+      {this.mybooksState = const AsyncValue.data([]),
+      this.sortOption = SortOptions.latest});
 
   @override
   @JsonKey()
   final AsyncValue<List<BookModel>> mybooksState;
+  @override
+  @JsonKey()
+  final dynamic sortOption;
 
   @override
   String toString() {
-    return 'BookshelfViewModelState(mybooksState: $mybooksState)';
+    return 'BookshelfViewModelState(mybooksState: $mybooksState, sortOption: $sortOption)';
   }
 
   @override
@@ -115,11 +127,14 @@ class _$BookshelfViewModelStateImpl implements _BookshelfViewModelState {
         (other.runtimeType == runtimeType &&
             other is _$BookshelfViewModelStateImpl &&
             (identical(other.mybooksState, mybooksState) ||
-                other.mybooksState == mybooksState));
+                other.mybooksState == mybooksState) &&
+            const DeepCollectionEquality()
+                .equals(other.sortOption, sortOption));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, mybooksState);
+  int get hashCode => Object.hash(runtimeType, mybooksState,
+      const DeepCollectionEquality().hash(sortOption));
 
   @JsonKey(ignore: true)
   @override
@@ -131,11 +146,13 @@ class _$BookshelfViewModelStateImpl implements _BookshelfViewModelState {
 
 abstract class _BookshelfViewModelState implements BookshelfViewModelState {
   const factory _BookshelfViewModelState(
-          {final AsyncValue<List<BookModel>> mybooksState}) =
-      _$BookshelfViewModelStateImpl;
+      {final AsyncValue<List<BookModel>> mybooksState,
+      final dynamic sortOption}) = _$BookshelfViewModelStateImpl;
 
   @override
   AsyncValue<List<BookModel>> get mybooksState;
+  @override
+  dynamic get sortOption;
   @override
   @JsonKey(ignore: true)
   _$$BookshelfViewModelStateImplCopyWith<_$BookshelfViewModelStateImpl>
