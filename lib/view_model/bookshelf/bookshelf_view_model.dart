@@ -29,13 +29,19 @@ class BookshelfViewModel extends _$BookshelfViewModel {
     });
     result.when(
       data: (data) {
-        if (state.sortOption == SortOptions.latest) {
-          state = state.copyWith(
-            mybooksState: AsyncValue.data(sortedByLatest(data!) ?? []),
-          );
+        if (data != null) {
+          if (state.sortOption == SortOptions.latest) {
+            state = state.copyWith(
+              mybooksState: AsyncValue.data(sortedByLatest(data) ?? []),
+            );
+          } else {
+            state = state.copyWith(
+              mybooksState: AsyncValue.data(sortedByOldest(data) ?? []),
+            );
+          }
         } else {
           state = state.copyWith(
-            mybooksState: AsyncValue.data(sortedByOldest(data!) ?? []),
+            mybooksState: const AsyncValue.data([]),
           );
         }
       },

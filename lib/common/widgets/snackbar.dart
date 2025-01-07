@@ -50,6 +50,7 @@ void showCustomSnackBar(BuildContext context, WidgetRef ref, String message,
                     ref
                         .read(bookshelfViewModelProvider.notifier)
                         .fetchMyBooksFromLocalDB();
+                    
                   })
                 })
         : null,

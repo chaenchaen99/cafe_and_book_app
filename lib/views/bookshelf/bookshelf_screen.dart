@@ -72,17 +72,23 @@ class _BookshelfScreenState extends ConsumerState<BookshelfScreen> {
         children: [
           const CircularBackground(),
           ref.watch(bookshelfViewModelProvider).mybooksState.when(
-                data: (books) => ListView.separated(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  itemCount:
-                      _itemLimit < books.length ? _itemLimit : books.length,
-                  itemBuilder: (context, index) {
-                    final book = books[index];
-                    return BookshelfItem(book: book);
-                  },
-                  separatorBuilder: (context, index) => const Line(),
-                ),
+                data: (books) => books.isNotEmpty
+                    ? ListView.separated(
+                        controller: _scrollController,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        itemCount: _itemLimit < books.length
+                            ? _itemLimit
+                            : books.length,
+                        itemBuilder: (context, index) {
+                          final book = books[index];
+
+                          return BookshelfItem(book: book);
+                        },
+                        separatorBuilder: (context, index) => const Line(),
+                      )
+                    : const Center(
+                        child: Text("서재에 담긴 책이 없습니다."),
+                      ),
                 error: (error, stack) => Center(
                   child: Text("에러가 발생했습니다: $error"),
                 ),
