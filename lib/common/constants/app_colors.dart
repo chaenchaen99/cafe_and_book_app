@@ -7,6 +7,7 @@ class AppColors {
   static const Color primary = Color(0xFFE07B39);
   static const Color second = Color(0xFFA5B68D);
   static const Color tertiary = Color(0xFFECDFCC);
+  static const Color linkText = Color.fromARGB(255, 28, 95, 38);
 
   static const Color background = Color(0xFFFCFAEE);
 

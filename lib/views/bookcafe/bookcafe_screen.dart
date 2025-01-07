@@ -1,7 +1,10 @@
 import 'package:cafe_and_book/common/constants/app_colors.dart';
+import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:cafe_and_book/view_model/bookcafe/bookcafe_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../common/widgets/text_widgets.dart';
 
 class BookcafeScreen extends ConsumerStatefulWidget {
@@ -20,6 +23,17 @@ class _BookcafeScreenState extends ConsumerState<BookcafeScreen> {
           .read(bookCafeViewModelProvider.notifier)
           .fetchAndCombineBookCafeData();
     });
+  }
+
+  Future<void> _openNaverMap(String query) async {
+    final encodedQuery = Uri.encodeComponent(query);
+    final url = 'https://map.naver.com/v5/search/$encodedQuery';
+
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -70,23 +84,44 @@ class _BookcafeScreenState extends ConsumerState<BookcafeScreen> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16.0),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 16.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      child: SmallText(
-                                        text: bookCafe!.bookCafeName,
-                                        weight: FontWeight.bold,
-                                      ),
+                                    SmallText(
+                                      text: bookCafe!.bookCafeName,
+                                      weight: FontWeight.bold,
                                     ),
+                                    SmallText(text: bookCafe.address),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      child: SmallText(text: bookCafe.address),
+                                        vertical: 10,
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () => _openNaverMap(
+                                            bookCafe.bookCafeName),
+                                        child: const Row(
+                                          children: [
+                                            Text(
+                                              "위치보기",
+                                              style: TextStyle(
+                                                color: AppColors.linkText,
+                                                fontSize: 12.0,
+                                                decorationColor:
+                                                    AppColors.linkText,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.location_on,
+                                              size: 16.0,
+                                              color: AppColors.linkText,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                     // 이미지 리스트는 다른 ListView로 처리
                                     SizedBox(
