@@ -1,9 +1,9 @@
 import 'package:cafe_and_book/common/widgets/circular_background.dart';
 import 'package:cafe_and_book/common/widgets/height_and_width.dart';
 import 'package:cafe_and_book/common/widgets/line.dart';
-import 'package:cafe_and_book/repository/book/naver_book_repository.dart';
 import 'package:cafe_and_book/view_model/search/search_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../common/widgets/text_widgets.dart';
@@ -67,11 +67,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     child: TextField(
                         controller: _textController,
                         focusNode: _focusNode,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           hintText: "검색하고싶은 책을 입력해보세요:)",
-                          suffixIcon: Icon(
-                            Icons.search_rounded,
-                            size: 28,
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              ref
+                                  .read(searchViewModelProvider.notifier)
+                                  .fetchSearchResult(_textController.text);
+                            },
+                            child: const Icon(
+                              Icons.search_rounded,
+                              size: 28,
+                            ),
                           ),
                         ),
                         onSubmitted: (value) {
@@ -79,8 +86,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           ref
                               .read(searchViewModelProvider.notifier)
                               .fetchSearchResult(value);
-
-                          debugPrint(_itemLimit.toString());
                         }),
                   ),
                 ),

@@ -14,7 +14,8 @@ class BookcafeScreen extends ConsumerStatefulWidget {
   ConsumerState<BookcafeScreen> createState() => _BookcafeScreenState();
 }
 
-class _BookcafeScreenState extends ConsumerState<BookcafeScreen> {
+class _BookcafeScreenState extends ConsumerState<BookcafeScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -38,6 +39,7 @@ class _BookcafeScreenState extends ConsumerState<BookcafeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: ref.watch(bookCafeViewModelProvider).bookCafeListState.when(
             data: (bookCafeList) {
@@ -136,17 +138,57 @@ class _BookcafeScreenState extends ConsumerState<BookcafeScreen> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(12),
-                                              child: Image.network(
-                                                bookCafe.thumbnails[index],
-                                                fit: BoxFit.cover,
-                                                width: 160,
-                                                height: 220,
-                                                errorBuilder: (context, error,
-                                                    stackTrace) {
-                                                  // 이미지 로딩에 실패한 경우 아무 것도 표시하지 않음
-                                                  return const SizedBox
-                                                      .shrink(); // 빈 공간을 아예 없애기
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return Dialog(
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(); // 이미지를 탭하면 닫기
+                                                          },
+                                                          child:
+                                                              InteractiveViewer(
+                                                            child:
+                                                                Image.network(
+                                                              bookCafe.thumbnails[
+                                                                  index],
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                              errorBuilder:
+                                                                  (context,
+                                                                      error,
+                                                                      stackTrace) {
+                                                                return const Icon(
+                                                                    Icons.error,
+                                                                    size: 50,
+                                                                    color: Colors
+                                                                        .red);
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
                                                 },
+                                                child: Image.network(
+                                                  bookCafe.thumbnails[index],
+                                                  fit: BoxFit.cover,
+                                                  width: 160,
+                                                  height: 220,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    // 이미지 로딩에 실패한 경우 아무 것도 표시하지 않음
+                                                    return const SizedBox
+                                                        .shrink(); // 빈 공간을 아예 없애기
+                                                  },
+                                                ),
                                               ),
                                             ),
                                           );
@@ -174,4 +216,7 @@ class _BookcafeScreenState extends ConsumerState<BookcafeScreen> {
           ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
